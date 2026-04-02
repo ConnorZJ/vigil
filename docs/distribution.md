@@ -11,6 +11,7 @@ Suggested workflow:
 3. Launch the app locally
 4. Grant Accessibility permission when prompted
 5. Confirm the bridge file is written to `~/.config/vigil/bridge.json`
+6. Confirm the menu bar icon appears and clicking it opens the custom popover UI
 
 ## Future GitHub Releases
 
