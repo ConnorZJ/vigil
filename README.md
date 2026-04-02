@@ -34,12 +34,16 @@ Run tests:
 make test
 ```
 
+Build the app locally:
+
+```bash
+make build
+```
+
 Run plugin checks:
 
 ```bash
-cd plugin
-/Users/connor/.bun/bin/bun test
-/Users/connor/.bun/bin/bun run typecheck
+make test-plugin
 ```
 
 ## Previewing The App
@@ -49,3 +53,20 @@ Open `Vigil.xcodeproj` in the worktree and run the app target. The current debug
 ## Permissions
 
 For Ghostty window discovery and jumping, the app needs macOS Accessibility permission. The menu includes a `Request Accessibility` action to prompt for it.
+
+## Local Plugin Install
+
+At this stage the plugin source lives in `plugin/`. The final packaging path can point OpenCode at the built package entry from `plugin/src/index.ts` or a published npm package later.
+
+For local development, the important pieces are:
+
+- app bridge file: `~/.config/vigil/bridge.json`
+- plugin entry exports: `plugin/src/index.ts`
+- plugin tests: `make test-plugin`
+
+## Troubleshooting
+
+- If the menu updates but jumps do not work, check macOS Accessibility permission.
+- If the plugin cannot deliver events, confirm `~/.config/vigil/bridge.json` exists.
+- If Bun is not in your shell `PATH`, use `/Users/connor/.bun/bin/bun` directly.
+- If Xcode build settings drift, regenerate with `make generate` before debugging project file issues.
