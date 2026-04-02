@@ -16,6 +16,7 @@
 		24C626DE5DAA6B7724E50CD3 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA0B065129C92203581A39 /* MenuBarController.swift */; };
 		28032444715AF46DFB08B3C5 /* GhosttyWindowMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7B5E4D3BBF336CC786B0A /* GhosttyWindowMatcherTests.swift */; };
 		2C1C8A85619194EA7DE45672 /* WindowSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A213D544538662E947E9E02F /* WindowSignature.swift */; };
+		2C5FC96F86FE11519FC77924 /* PixelArtMenuIconProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D56EFC5720FD5FED5E0CB6 /* PixelArtMenuIconProviderTests.swift */; };
 		2DB5B86A3178BA6B90960BA3 /* JSONFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DD7B53DD266D8BD72DC229 /* JSONFileStore.swift */; };
 		3058BBAF7EB1877ECA61F123 /* GhosttyWindowBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F7C01D6C31D892E089CDA6 /* GhosttyWindowBinder.swift */; };
 		33D6A8362FD0338D1E486C69 /* BindingPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C575F1EDBFB8344B9835A5 /* BindingPersistence.swift */; };
@@ -34,6 +35,7 @@
 		648924C17A528D45ADF75BCD /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D421C63753B25E421494F702 /* SessionStore.swift */; };
 		6E9285CC33C269C1D60469EB /* BridgeFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EF77A54DBE27579879E6B7 /* BridgeFileWriter.swift */; };
 		708864079B236EEA12532DA9 /* SessionMenuRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2763E534CCE2D6573FF0946F /* SessionMenuRowViewModel.swift */; };
+		77427AC384114A1E703F7D5C /* PixelArtMenuIconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FD0CF883E1551DF62B1992 /* PixelArtMenuIconProvider.swift */; };
 		7A54998813B65C49351B5410 /* SessionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C8EFCC7E0E759738AAEA74 /* SessionEvent.swift */; };
 		7E22111B8446BF2C1020E291 /* BridgeFileWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFC7A5DF0316DA2B3F0B03F /* BridgeFileWriterTests.swift */; };
 		7F8194A1DA29AD5E6436A6D0 /* SessionMenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649302057895CAB06BC35F78 /* SessionMenuBuilder.swift */; };
@@ -82,6 +84,7 @@
 		55D44626EEC8430542B0AA50 /* GhosttyWindowBinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowBinderTests.swift; sourceTree = "<group>"; };
 		586857FC148ABB927E346D7F /* EmbeddedHTTPServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedHTTPServer.swift; sourceTree = "<group>"; };
 		649302057895CAB06BC35F78 /* SessionMenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMenuBuilder.swift; sourceTree = "<group>"; };
+		67D56EFC5720FD5FED5E0CB6 /* PixelArtMenuIconProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelArtMenuIconProviderTests.swift; sourceTree = "<group>"; };
 		6E043764819394637ED39EEF /* SessionMenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMenuActions.swift; sourceTree = "<group>"; };
 		71AC48DD991D7B7D366A45B2 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		72C33FFC7D3AB3119E2BE185 /* GhosttyWindowActivator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowActivator.swift; sourceTree = "<group>"; };
@@ -94,6 +97,7 @@
 		A3A079141EE3396A0D619BED /* VigilTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VigilTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4C4C3D0FB08ED05ED30D83E /* EventIngestionControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventIngestionControllerTests.swift; sourceTree = "<group>"; };
 		A6BB2419160E8F3C8144DF1D /* VigilApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VigilApp.swift; sourceTree = "<group>"; };
+		A6FD0CF883E1551DF62B1992 /* PixelArtMenuIconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelArtMenuIconProvider.swift; sourceTree = "<group>"; };
 		ABA9934EB3594A53050BECB1 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B3F7C01D6C31D892E089CDA6 /* GhosttyWindowBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowBinder.swift; sourceTree = "<group>"; };
 		B635BBBA650690B6C77CCCBE /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 		F9CD5A7DA7175DAF3B428F0E /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				A6FD0CF883E1551DF62B1992 /* PixelArtMenuIconProvider.swift */,
 				6E043764819394637ED39EEF /* SessionMenuActions.swift */,
 				649302057895CAB06BC35F78 /* SessionMenuBuilder.swift */,
 				2763E534CCE2D6573FF0946F /* SessionMenuRowViewModel.swift */,
@@ -314,6 +319,7 @@
 		FB0462C813B6B2CAC8B40DF4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				67D56EFC5720FD5FED5E0CB6 /* PixelArtMenuIconProviderTests.swift */,
 				B9A1D051DE07E57A76816BD3 /* SessionMenuBuilderTests.swift */,
 			);
 			path = UI;
@@ -422,6 +428,7 @@
 				24C626DE5DAA6B7724E50CD3 /* MenuBarController.swift in Sources */,
 				1F332B917EA889228329707A /* NotificationPolicy.swift in Sources */,
 				3D6C15E493A6A134F360DD74 /* Paths.swift in Sources */,
+				77427AC384114A1E703F7D5C /* PixelArtMenuIconProvider.swift in Sources */,
 				7A54998813B65C49351B5410 /* SessionEvent.swift in Sources */,
 				DA72ABC32138AAF96083DB94 /* SessionMenuActions.swift in Sources */,
 				7F8194A1DA29AD5E6436A6D0 /* SessionMenuBuilder.swift in Sources */,
@@ -447,6 +454,7 @@
 				82896903FE2EE8E7FDE1F4CF /* GhosttyWindowBinderTests.swift in Sources */,
 				28032444715AF46DFB08B3C5 /* GhosttyWindowMatcherTests.swift in Sources */,
 				91EA3BDB0522CCFE5F77F1E5 /* NotificationPolicyTests.swift in Sources */,
+				2C5FC96F86FE11519FC77924 /* PixelArtMenuIconProviderTests.swift in Sources */,
 				4F442C35DB642A22218A0A9E /* SessionMenuBuilderTests.swift in Sources */,
 				82EEA604362FE92C8F20F75E /* SessionPersistenceTests.swift in Sources */,
 				B7666CF66B1383A398649E6C /* SessionPriorityTests.swift in Sources */,
