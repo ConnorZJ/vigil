@@ -1,0 +1,33 @@
+name: Vigil
+options:
+  minimumXcodeGenVersion: 2.38.0
+settings:
+  base:
+    SWIFT_VERSION: 5.10
+targets:
+  Vigil:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Vigil
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.vigil.app
+        PRODUCT_NAME: Vigil
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_LSUIElement: YES
+        CODE_SIGNING_ALLOWED: NO
+  VigilTests:
+    type: bundle.unit-test
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: VigilTests
+    dependencies:
+      - target: Vigil
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.vigil.app.tests
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGNING_ALLOWED: NO
