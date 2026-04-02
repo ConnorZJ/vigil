@@ -8,26 +8,19 @@ final class MenuBarController: NSObject {
     private let pixelArtIconProvider = PixelArtMenuIconProvider()
     private let topIconProvider = MenuBarTopIconProvider()
     private let popoverController: StatusItemPopoverController
+    private let popoverPresentationBuilder = PopoverPresentationBuilder()
 
     init(appState: AppState, statusBar: NSStatusBar = .system) {
         self.appState = appState
         self.actions = appState.menuActions
-        self.popoverController = StatusItemPopoverController {
-            AnyView(
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Vigil")
-                        .font(.headline)
-
-                    Text("Popover migration in progress")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-
-                    Text("Tracked: \(appState.sessionSnapshots.count)")
-                        .font(.caption)
-                }
-                .padding(12)
-                .frame(width: 280)
+        self.popoverController = StatusItemPopoverController { [popoverPresentationBuilder, appState] in
+            let presentation = popoverPresentationBuilder.build(
+                from: appState.sessionSnapshots,
+                diagnostics: appState.diagnosticsSnapshot,
+                now: Date()
             )
+
+            return AnyView(PopoverRootView(presentation: presentation, actions: appState.menuActions))
         }
         statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
         super.init()

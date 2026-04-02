@@ -44,6 +44,7 @@ final class StatusItemPopoverController {
 
     private func show(relativeTo button: NSStatusBarButton) {
         popover.contentViewController = NSHostingController(rootView: rootViewProvider())
+        popover.contentSize = NSSize(width: 360, height: 420)
         popover.show(relativeTo: button.bounds, of: button, preferredEdge: .maxY)
     }
 }

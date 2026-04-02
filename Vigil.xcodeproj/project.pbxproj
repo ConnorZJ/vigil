@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D4981A870005DF1F9D10298 /* UtilityActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2939726F63360A85B74EBB47 /* UtilityActionsView.swift */; };
+		1307B2E75CC5A5322C41C27A /* SessionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BE9BCC28C611AE07C3BC27 /* SessionCardView.swift */; };
 		14CD4B612F9C4A71872149B6 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8997B050467874866912F213 /* AppState.swift */; };
 		174FAA0D50555CA84212C927 /* UserNotificationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B567A47ED49EAB6D22EE88 /* UserNotificationClient.swift */; };
 		1B975B1D059A22E2C846C7E2 /* TestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71998DCB6E1AA3D57745BE /* TestSupport.swift */; };
@@ -53,8 +55,10 @@
 		B029C05205164152264B668B /* StatusItemPopoverControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B042C60E24D8FCD721ED614 /* StatusItemPopoverControllerTests.swift */; };
 		B712B2CDEC5608F15A62AC9F /* SessionSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0814A700DAC42D30741B46F /* SessionSnapshot.swift */; };
 		B7666CF66B1383A398649E6C /* SessionPriorityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB0A5609E134AB987EB0051 /* SessionPriorityTests.swift */; };
+		B8255D27648CC822ED204A44 /* DiagnosticsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB2B4000469D13958B1FD59 /* DiagnosticsSectionView.swift */; };
 		BC9989D29F3005DB1CBE5D24 /* MenuBarTopIconProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C1AAFAA3A3CA666B2775DE /* MenuBarTopIconProviderTests.swift */; };
 		BD67B83F870E209B59779AF7 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48DD991D7B7D366A45B2 /* Clock.swift */; };
+		BEFAC9D914CD8979E7151C10 /* PopoverRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9327FDDBE9DA689BB1A6A7D2 /* PopoverRootView.swift */; };
 		D5D7CB42B1E26A2DCB740870 /* GhosttyWindowQuerying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3325EAC1FF545FC1161DF775 /* GhosttyWindowQuerying.swift */; };
 		DA72ABC32138AAF96083DB94 /* SessionMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E043764819394637ED39EEF /* SessionMenuActions.swift */; };
 		E51493E2AA4AC04A3317E6B7 /* PopoverPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E0F6B2A11CA2693D57111E /* PopoverPresentation.swift */; };
@@ -79,6 +83,7 @@
 		18061D64817AF8F554FD0C37 /* SessionPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPersistence.swift; sourceTree = "<group>"; };
 		2763E534CCE2D6573FF0946F /* SessionMenuRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMenuRowViewModel.swift; sourceTree = "<group>"; };
 		28A42B9752507FC789A0117E /* GhosttyWindowMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowMatcher.swift; sourceTree = "<group>"; };
+		2939726F63360A85B74EBB47 /* UtilityActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityActionsView.swift; sourceTree = "<group>"; };
 		2BEA3DA90BC3986C4AB89205 /* SessionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatus.swift; sourceTree = "<group>"; };
 		3325EAC1FF545FC1161DF775 /* GhosttyWindowQuerying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowQuerying.swift; sourceTree = "<group>"; };
 		35602E52068E7B012D1B92C1 /* GhosttyAXWindowQueryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyAXWindowQueryService.swift; sourceTree = "<group>"; };
@@ -100,6 +105,7 @@
 		8240BD6508D7E391831626B1 /* BindingPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingPersistenceTests.swift; sourceTree = "<group>"; };
 		85B567A47ED49EAB6D22EE88 /* UserNotificationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationClient.swift; sourceTree = "<group>"; };
 		8997B050467874866912F213 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		9327FDDBE9DA689BB1A6A7D2 /* PopoverRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverRootView.swift; sourceTree = "<group>"; };
 		97FA0B065129C92203581A39 /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
 		9A62DF0B12B130BACACB0E00 /* PopoverPresentationBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverPresentationBuilderTests.swift; sourceTree = "<group>"; };
 		9B042C60E24D8FCD721ED614 /* StatusItemPopoverControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemPopoverControllerTests.swift; sourceTree = "<group>"; };
@@ -108,6 +114,7 @@
 		A4C4C3D0FB08ED05ED30D83E /* EventIngestionControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventIngestionControllerTests.swift; sourceTree = "<group>"; };
 		A6BB2419160E8F3C8144DF1D /* VigilApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VigilApp.swift; sourceTree = "<group>"; };
 		A6FD0CF883E1551DF62B1992 /* PixelArtMenuIconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelArtMenuIconProvider.swift; sourceTree = "<group>"; };
+		AAB2B4000469D13958B1FD59 /* DiagnosticsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsSectionView.swift; sourceTree = "<group>"; };
 		ABA9934EB3594A53050BECB1 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B3F7C01D6C31D892E089CDA6 /* GhosttyWindowBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowBinder.swift; sourceTree = "<group>"; };
 		B635BBBA650690B6C77CCCBE /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
@@ -117,6 +124,7 @@
 		BBB0A5609E134AB987EB0051 /* SessionPriorityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPriorityTests.swift; sourceTree = "<group>"; };
 		BC09D4B43BBF0F6773C0AE80 /* PopoverPresentationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverPresentationBuilder.swift; sourceTree = "<group>"; };
 		C2EBE3197AF61746E3F8E707 /* SessionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStoreTests.swift; sourceTree = "<group>"; };
+		C8BE9BCC28C611AE07C3BC27 /* SessionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCardView.swift; sourceTree = "<group>"; };
 		CAEE74A8CE3EAE691D36DA71 /* NotificationPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicyTests.swift; sourceTree = "<group>"; };
 		D421C63753B25E421494F702 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 		D7C7CA4120C5E0932BE17484 /* MenuBarTopIconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarTopIconProvider.swift; sourceTree = "<group>"; };
@@ -332,13 +340,17 @@
 		F9CD5A7DA7175DAF3B428F0E /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				AAB2B4000469D13958B1FD59 /* DiagnosticsSectionView.swift */,
 				D7C7CA4120C5E0932BE17484 /* MenuBarTopIconProvider.swift */,
 				A6FD0CF883E1551DF62B1992 /* PixelArtMenuIconProvider.swift */,
 				F3E0F6B2A11CA2693D57111E /* PopoverPresentation.swift */,
 				BC09D4B43BBF0F6773C0AE80 /* PopoverPresentationBuilder.swift */,
+				9327FDDBE9DA689BB1A6A7D2 /* PopoverRootView.swift */,
+				C8BE9BCC28C611AE07C3BC27 /* SessionCardView.swift */,
 				6E043764819394637ED39EEF /* SessionMenuActions.swift */,
 				649302057895CAB06BC35F78 /* SessionMenuBuilder.swift */,
 				2763E534CCE2D6573FF0946F /* SessionMenuRowViewModel.swift */,
+				2939726F63360A85B74EBB47 /* UtilityActionsView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -444,6 +456,7 @@
 				33D6A8362FD0338D1E486C69 /* BindingPersistence.swift in Sources */,
 				6E9285CC33C269C1D60469EB /* BridgeFileWriter.swift in Sources */,
 				BD67B83F870E209B59779AF7 /* Clock.swift in Sources */,
+				B8255D27648CC822ED204A44 /* DiagnosticsSectionView.swift in Sources */,
 				49167EF9FA589DC718A7E863 /* EmbeddedHTTPServer.swift in Sources */,
 				61AABAE97269A05BC7307E84 /* EventIngestionController.swift in Sources */,
 				3ABC987527103A65F0BA33FE /* GhosttyAXWindowQueryService.swift in Sources */,
@@ -461,6 +474,8 @@
 				77427AC384114A1E703F7D5C /* PixelArtMenuIconProvider.swift in Sources */,
 				E51493E2AA4AC04A3317E6B7 /* PopoverPresentation.swift in Sources */,
 				694FFFED431666CBDB79FF9B /* PopoverPresentationBuilder.swift in Sources */,
+				BEFAC9D914CD8979E7151C10 /* PopoverRootView.swift in Sources */,
+				1307B2E75CC5A5322C41C27A /* SessionCardView.swift in Sources */,
 				7A54998813B65C49351B5410 /* SessionEvent.swift in Sources */,
 				DA72ABC32138AAF96083DB94 /* SessionMenuActions.swift in Sources */,
 				7F8194A1DA29AD5E6436A6D0 /* SessionMenuBuilder.swift in Sources */,
@@ -472,6 +487,7 @@
 				648924C17A528D45ADF75BCD /* SessionStore.swift in Sources */,
 				6C6A47A0B48A978E96677DF6 /* StatusItemPopoverController.swift in Sources */,
 				174FAA0D50555CA84212C927 /* UserNotificationClient.swift in Sources */,
+				0D4981A870005DF1F9D10298 /* UtilityActionsView.swift in Sources */,
 				F14D6D0B0A1855F64912288D /* VigilApp.swift in Sources */,
 				2C1C8A85619194EA7DE45672 /* WindowSignature.swift in Sources */,
 			);

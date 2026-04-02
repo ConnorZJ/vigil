@@ -17,6 +17,10 @@ targets:
     sources:
       - path: Vigil
       - path: Vigil/Ghostty
+      - path: Vigil/UI/PopoverRootView.swift
+      - path: Vigil/UI/SessionCardView.swift
+      - path: Vigil/UI/DiagnosticsSectionView.swift
+      - path: Vigil/UI/UtilityActionsView.swift
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.vigil.app
