@@ -16,6 +16,12 @@ final class SessionStore {
         }
     }
 
+    var allSnapshots: [SessionSnapshot] {
+        snapshotsBySessionId.values.sorted { lhs, rhs in
+            compare(lhs, rhs) == .orderedDescending
+        }
+    }
+
     func snapshot(for sessionId: String) -> SessionSnapshot? {
         snapshotsBySessionId[sessionId]
     }

@@ -3,6 +3,7 @@ options:
   minimumXcodeGenVersion: 2.38.0
 settings:
   base:
+    MARKETING_VERSION: 0.1.0
     SWIFT_VERSION: 5.10
     ENABLE_TESTING_SEARCH_PATHS: YES
 targets:
