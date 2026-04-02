@@ -44,6 +44,19 @@ final class SessionMenuBuilderTests: XCTestCase {
         let row = try XCTUnwrap(presentation.sections.first(where: { $0.kind == .running })?.rows.first)
         XCTAssertEqual(row.projectName, "project-running")
         XCTAssertEqual(row.relativeUpdatedText, "30s ago")
+        XCTAssertEqual(row.iconState, .running)
+    }
+
+    func testNeedsAttentionRowUsesStatusSpecificIconState() throws {
+        let builder = SessionMenuBuilder()
+        let now = Date(timeIntervalSince1970: 1_712_000_000)
+        let presentation = builder.build(
+            from: [makeSnapshot(id: "error", status: .error, updatedAt: now)],
+            now: now
+        )
+
+        let row = try XCTUnwrap(presentation.sections.first(where: { $0.kind == .needsAttention })?.rows.first)
+        XCTAssertEqual(row.iconState, .error)
     }
 
     private func makeSnapshot(id: String, status: SessionStatus, updatedAt: Date) -> SessionSnapshot {

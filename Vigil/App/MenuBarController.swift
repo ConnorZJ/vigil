@@ -5,6 +5,7 @@ final class MenuBarController: NSObject {
     private let appState: AppState
     private var menu: NSMenu?
     private let actions: SessionMenuActions
+    private let pixelArtIconProvider = PixelArtMenuIconProvider()
 
     init(appState: AppState, statusBar: NSStatusBar = .system) {
         self.appState = appState
@@ -45,12 +46,13 @@ final class MenuBarController: NSObject {
 
             for row in section.rows {
                 let item = NSMenuItem(
-                    title: "[\(row.statusText)] \(row.title) - \(row.projectName) - \(row.relativeUpdatedText)",
+                    title: "\(row.title) - \(row.projectName) - \(row.relativeUpdatedText)",
                     action: #selector(openSessionFromMenu(_:)),
                     keyEquivalent: ""
                 )
                 item.target = self
                 item.representedObject = row.sessionId
+                item.image = pixelArtIconProvider.image(for: row.iconState)
                 menu.addItem(item)
 
                 let bindItem = NSMenuItem(

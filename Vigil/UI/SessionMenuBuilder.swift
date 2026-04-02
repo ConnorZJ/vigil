@@ -80,6 +80,7 @@ struct SessionMenuBuilder {
                     sessionId: snapshot.sessionId,
                     title: snapshot.sessionTitle,
                     projectName: snapshot.projectName,
+                    iconState: iconState(for: snapshot),
                     statusText: statusText(for: snapshot.status),
                     relativeUpdatedText: relativeAgeText(updatedAt: snapshot.updatedAt, now: now),
                     requiresAttention: snapshot.status.requiresAttention
