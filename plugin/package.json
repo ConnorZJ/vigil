@@ -1,0 +1,13 @@
+{
+  "name": "vigil-opencode-plugin",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "typescript": "^5.6.3"
+  }
+}
