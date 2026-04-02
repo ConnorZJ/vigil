@@ -4,6 +4,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: 5.10
+    ENABLE_TESTING_SEARCH_PATHS: YES
 targets:
   Vigil:
     type: application
