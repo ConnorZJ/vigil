@@ -16,6 +16,7 @@
 		2C1C8A85619194EA7DE45672 /* WindowSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A213D544538662E947E9E02F /* WindowSignature.swift */; };
 		2DB5B86A3178BA6B90960BA3 /* JSONFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DD7B53DD266D8BD72DC229 /* JSONFileStore.swift */; };
 		33D6A8362FD0338D1E486C69 /* BindingPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C575F1EDBFB8344B9835A5 /* BindingPersistence.swift */; };
+		3ABC987527103A65F0BA33FE /* GhosttyAXWindowQueryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35602E52068E7B012D1B92C1 /* GhosttyAXWindowQueryService.swift */; };
 		3B8227E150D548BCDC2AAE70 /* SessionPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18061D64817AF8F554FD0C37 /* SessionPersistence.swift */; };
 		3D6C15E493A6A134F360DD74 /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C0E4060A1CE92FAD00DE8E /* Paths.swift */; };
 		469D9E44F01C0D00B75C0035 /* SessionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEA3DA90BC3986C4AB89205 /* SessionStatus.swift */; };
@@ -33,13 +34,16 @@
 		7A54998813B65C49351B5410 /* SessionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C8EFCC7E0E759738AAEA74 /* SessionEvent.swift */; };
 		7E22111B8446BF2C1020E291 /* BridgeFileWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFC7A5DF0316DA2B3F0B03F /* BridgeFileWriterTests.swift */; };
 		7F8194A1DA29AD5E6436A6D0 /* SessionMenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649302057895CAB06BC35F78 /* SessionMenuBuilder.swift */; };
+		82808FC385B17782D116D583 /* AXPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ED287B09C371EE9E524C18 /* AXPermissionService.swift */; };
 		82EEA604362FE92C8F20F75E /* SessionPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93E626F08BA7B4427248C /* SessionPersistenceTests.swift */; };
 		84B977456C32EAA473CBA1F2 /* SessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EBE3197AF61746E3F8E707 /* SessionStoreTests.swift */; };
+		874F7BC856D1A7D4EAAB8775 /* GhosttyWindowDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907853DC19836B386528A4A /* GhosttyWindowDescriptor.swift */; };
 		8930B07C96D4093822A3C554 /* AuthTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB972166502388A53E7FE7CA /* AuthTokenProvider.swift */; };
 		91EA3BDB0522CCFE5F77F1E5 /* NotificationPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEE74A8CE3EAE691D36DA71 /* NotificationPolicyTests.swift */; };
 		B712B2CDEC5608F15A62AC9F /* SessionSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0814A700DAC42D30741B46F /* SessionSnapshot.swift */; };
 		B7666CF66B1383A398649E6C /* SessionPriorityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB0A5609E134AB987EB0051 /* SessionPriorityTests.swift */; };
 		BD67B83F870E209B59779AF7 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48DD991D7B7D366A45B2 /* Clock.swift */; };
+		D5D7CB42B1E26A2DCB740870 /* GhosttyWindowQuerying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3325EAC1FF545FC1161DF775 /* GhosttyWindowQuerying.swift */; };
 		DA72ABC32138AAF96083DB94 /* SessionMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E043764819394637ED39EEF /* SessionMenuActions.swift */; };
 		F14D6D0B0A1855F64912288D /* VigilApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BB2419160E8F3C8144DF1D /* VigilApp.swift */; };
 		F18C02A6A5345F71146CB30F /* BindingPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8240BD6508D7E391831626B1 /* BindingPersistenceTests.swift */; };
@@ -61,6 +65,8 @@
 		18061D64817AF8F554FD0C37 /* SessionPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPersistence.swift; sourceTree = "<group>"; };
 		2763E534CCE2D6573FF0946F /* SessionMenuRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMenuRowViewModel.swift; sourceTree = "<group>"; };
 		2BEA3DA90BC3986C4AB89205 /* SessionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatus.swift; sourceTree = "<group>"; };
+		3325EAC1FF545FC1161DF775 /* GhosttyWindowQuerying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowQuerying.swift; sourceTree = "<group>"; };
+		35602E52068E7B012D1B92C1 /* GhosttyAXWindowQueryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyAXWindowQueryService.swift; sourceTree = "<group>"; };
 		37C8EFCC7E0E759738AAEA74 /* SessionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEvent.swift; sourceTree = "<group>"; };
 		45C0E4060A1CE92FAD00DE8E /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
 		48C93E626F08BA7B4427248C /* SessionPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPersistenceTests.swift; sourceTree = "<group>"; };
@@ -82,6 +88,7 @@
 		ABA9934EB3594A53050BECB1 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B635BBBA650690B6C77CCCBE /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
 		B85D36572956AF65600CE196 /* Vigil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vigil.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B907853DC19836B386528A4A /* GhosttyWindowDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowDescriptor.swift; sourceTree = "<group>"; };
 		B9A1D051DE07E57A76816BD3 /* SessionMenuBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMenuBuilderTests.swift; sourceTree = "<group>"; };
 		BBB0A5609E134AB987EB0051 /* SessionPriorityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPriorityTests.swift; sourceTree = "<group>"; };
 		C2EBE3197AF61746E3F8E707 /* SessionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStoreTests.swift; sourceTree = "<group>"; };
@@ -91,6 +98,7 @@
 		DE71998DCB6E1AA3D57745BE /* TestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSupport.swift; sourceTree = "<group>"; };
 		E0814A700DAC42D30741B46F /* SessionSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSnapshot.swift; sourceTree = "<group>"; };
 		E5C575F1EDBFB8344B9835A5 /* BindingPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingPersistence.swift; sourceTree = "<group>"; };
+		E5ED287B09C371EE9E524C18 /* AXPermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXPermissionService.swift; sourceTree = "<group>"; };
 		E7DD7B53DD266D8BD72DC229 /* JSONFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFileStore.swift; sourceTree = "<group>"; };
 		EDC1A87CA31CD8E2225466CA /* NotificationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicy.swift; sourceTree = "<group>"; };
 		EDFC7A5DF0316DA2B3F0B03F /* BridgeFileWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeFileWriterTests.swift; sourceTree = "<group>"; };
@@ -175,6 +183,17 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		842FAA28DD9B09DB86E72B5D /* Ghostty */ = {
+			isa = PBXGroup;
+			children = (
+				E5ED287B09C371EE9E524C18 /* AXPermissionService.swift */,
+				35602E52068E7B012D1B92C1 /* GhosttyAXWindowQueryService.swift */,
+				B907853DC19836B386528A4A /* GhosttyWindowDescriptor.swift */,
+				3325EAC1FF545FC1161DF775 /* GhosttyWindowQuerying.swift */,
+			);
+			path = Ghostty;
+			sourceTree = "<group>";
+		};
 		8C4C9B0BCB7E0480F88D1DB9 /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +241,7 @@
 			children = (
 				E13625EA1478DFCAD6D22579 /* App */,
 				16628F41665EDB2D74219103 /* Domain */,
+				842FAA28DD9B09DB86E72B5D /* Ghostty */,
 				DA5706B260BD34D470139190 /* Notifications */,
 				1FA176F8F2D6893D39ECE50D /* Persistence */,
 				3BE9F1D58DB618A7E0022D21 /* State */,
@@ -359,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82808FC385B17782D116D583 /* AXPermissionService.swift in Sources */,
 				487E1205647A790B900DEB7E /* AppDelegate.swift in Sources */,
 				14CD4B612F9C4A71872149B6 /* AppState.swift in Sources */,
 				8930B07C96D4093822A3C554 /* AuthTokenProvider.swift in Sources */,
@@ -367,6 +388,9 @@
 				BD67B83F870E209B59779AF7 /* Clock.swift in Sources */,
 				49167EF9FA589DC718A7E863 /* EmbeddedHTTPServer.swift in Sources */,
 				61AABAE97269A05BC7307E84 /* EventIngestionController.swift in Sources */,
+				3ABC987527103A65F0BA33FE /* GhosttyAXWindowQueryService.swift in Sources */,
+				874F7BC856D1A7D4EAAB8775 /* GhosttyWindowDescriptor.swift in Sources */,
+				D5D7CB42B1E26A2DCB740870 /* GhosttyWindowQuerying.swift in Sources */,
 				2DB5B86A3178BA6B90960BA3 /* JSONFileStore.swift in Sources */,
 				5442EF26B7CA2E33A0365E5C /* Logger.swift in Sources */,
 				24C626DE5DAA6B7724E50CD3 /* MenuBarController.swift in Sources */,
@@ -469,6 +493,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -571,6 +596,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

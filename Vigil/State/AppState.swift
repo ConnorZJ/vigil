@@ -5,6 +5,8 @@ final class AppState {
     private let menuBuilder: SessionMenuBuilder
     private let sessionStore: SessionStore
     private let transportServer: EmbeddedHTTPServer
+    private let permissionService: AXPermissionProviding
+    private let ghosttyWindowQueryService: GhosttyWindowQuerying
 
     var onChange: (() -> Void)?
 
@@ -12,12 +14,16 @@ final class AppState {
         clock: TimeProviding = SystemTimeProvider(),
         menuBuilder: SessionMenuBuilder = SessionMenuBuilder(),
         sessionStore: SessionStore = SessionStore(),
-        transportServer: EmbeddedHTTPServer? = nil
+        transportServer: EmbeddedHTTPServer? = nil,
+        permissionService: AXPermissionProviding = AXPermissionService(),
+        ghosttyWindowQueryService: GhosttyWindowQuerying = GhosttyAXWindowQueryService()
     ) {
         self.clock = clock
         self.menuBuilder = menuBuilder
         self.sessionStore = sessionStore
         self.transportServer = transportServer ?? EmbeddedHTTPServer(sessionStore: sessionStore)
+        self.permissionService = permissionService
+        self.ghosttyWindowQueryService = ghosttyWindowQueryService
     }
 
     var presentation: SessionMenuPresentation {
@@ -26,6 +32,14 @@ final class AppState {
 
     var menuActions: SessionMenuActions {
         .noop
+    }
+
+    var accessibilityPermissionStatus: AXPermissionStatus {
+        permissionService.status
+    }
+
+    func currentGhosttyWindows() -> [GhosttyWindowDescriptor] {
+        (try? ghosttyWindowQueryService.currentWindows()) ?? []
     }
 
     func bootstrap(seedPreviewData: Bool = false) {
