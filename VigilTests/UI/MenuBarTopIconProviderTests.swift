@@ -24,4 +24,15 @@ final class MenuBarTopIconProviderTests: XCTestCase {
         XCTAssertNotNil(waitingImage)
         XCTAssertNotNil(permissionImage)
     }
+
+    func testAnimationFrameCountsFollowPolicy() {
+        let provider = MenuBarTopIconProvider()
+
+        XCTAssertEqual(provider.frameCount(for: .idle), 1)
+        XCTAssertEqual(provider.frameCount(for: .running), 2)
+        XCTAssertEqual(provider.frameCount(for: .waitingInput), 2)
+        XCTAssertEqual(provider.frameCount(for: .permission), 2)
+        XCTAssertEqual(provider.frameCount(for: .complete), 2)
+        XCTAssertEqual(provider.frameCount(for: .error), 2)
+    }
 }

@@ -21,7 +21,11 @@ final class MenuBarTopIconProvider {
     private let imageSize = NSSize(width: 16, height: 16)
 
     func image(for state: MenuBarIconState) -> NSImage? {
-        let rects = rects(for: state)
+        image(for: state, frame: 0)
+    }
+
+    func image(for state: MenuBarIconState, frame: Int) -> NSImage? {
+        let rects = rects(for: state, frame: frame)
         guard !rects.isEmpty else {
             return nil
         }
@@ -55,7 +59,16 @@ final class MenuBarTopIconProvider {
         return image
     }
 
-    private func rects(for state: MenuBarIconState) -> [PixelRect] {
+    func frameCount(for state: MenuBarIconState) -> Int {
+        switch state {
+        case .idle:
+            return 1
+        case .running, .waitingInput, .permission, .complete, .error:
+            return 2
+        }
+    }
+
+    private func rects(for state: MenuBarIconState, frame: Int) -> [PixelRect] {
         switch state {
         case .idle:
             return [
@@ -68,23 +81,23 @@ final class MenuBarTopIconProvider {
                 .init(x: 4, y: 4, width: 8, height: 8, color: .topSkin),
                 .init(x: 6, y: 7, width: 1, height: 1, color: .topFace),
                 .init(x: 9, y: 7, width: 1, height: 1, color: .topFace),
-                .init(x: 12, y: 2, width: 2, height: 2, color: .topYellow)
+                .init(x: frame == 0 ? 12 : 1, y: frame == 0 ? 2 : 10, width: 2, height: 2, color: .topYellow)
             ]
         case .waitingInput:
             return [
                 .init(x: 4, y: 4, width: 8, height: 8, color: .topSkin),
                 .init(x: 6, y: 7, width: 1, height: 1, color: .topFace),
                 .init(x: 9, y: 7, width: 1, height: 1, color: .topFace),
-                .init(x: 12, y: 6, width: 1, height: 1, color: .topYellow),
-                .init(x: 13, y: 6, width: 1, height: 1, color: .topYellow),
-                .init(x: 14, y: 6, width: 1, height: 1, color: .topYellow)
+                .init(x: frame == 0 ? 12 : 11, y: 6, width: 1, height: 1, color: .topYellow),
+                .init(x: frame == 0 ? 13 : 12, y: 6, width: 1, height: 1, color: .topYellow),
+                .init(x: frame == 0 ? 14 : 13, y: 6, width: 1, height: 1, color: .topYellow)
             ]
         case .permission:
             return [
                 .init(x: 4, y: 4, width: 8, height: 8, color: .topSkin),
                 .init(x: 6, y: 7, width: 1, height: 1, color: .topFace),
                 .init(x: 9, y: 7, width: 1, height: 1, color: .topFace),
-                .init(x: 12, y: 4, width: 2, height: 3, color: .topBlue),
+                .init(x: 12, y: frame == 0 ? 4 : 3, width: 2, height: 3, color: .topBlue),
                 .init(x: 12, y: 7, width: 2, height: 1, color: .white)
             ]
         case .complete:
@@ -93,8 +106,8 @@ final class MenuBarTopIconProvider {
                 .init(x: 6, y: 7, width: 1, height: 1, color: .topFace),
                 .init(x: 9, y: 7, width: 1, height: 1, color: .topFace),
                 .init(x: 12, y: 3, width: 3, height: 3, color: .topGreen),
-                .init(x: 13, y: 5, width: 1, height: 1, color: .white),
-                .init(x: 14, y: 4, width: 1, height: 1, color: .white)
+                .init(x: 13, y: frame == 0 ? 5 : 4, width: 1, height: 1, color: .white),
+                .init(x: 14, y: frame == 0 ? 4 : 3, width: 1, height: 1, color: .white)
             ]
         case .error:
             return [
@@ -103,7 +116,7 @@ final class MenuBarTopIconProvider {
                 .init(x: 8, y: 6, width: 2, height: 2, color: .topFace),
                 .init(x: 12, y: 3, width: 3, height: 3, color: .topRed),
                 .init(x: 13, y: 4, width: 1, height: 1, color: .white),
-                .init(x: 13, y: 5, width: 1, height: 1, color: .white)
+                .init(x: 13, y: frame == 0 ? 5 : 6, width: 1, height: 1, color: .white)
             ]
         }
     }

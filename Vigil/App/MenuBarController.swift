@@ -9,6 +9,10 @@ final class MenuBarController: NSObject {
     private let topIconProvider = MenuBarTopIconProvider()
     private let popoverController: StatusItemPopoverController
     private let popoverPresentationBuilder = PopoverPresentationBuilder()
+    private var animationTimer: Timer?
+    private var currentIconState: MenuBarIconState = .idle
+    private var currentAnimationFrame = 0
+    private var settleToStaticAfterNextTick = false
 
     init(appState: AppState, statusBar: NSStatusBar = .system) {
         self.appState = appState
@@ -38,11 +42,52 @@ final class MenuBarController: NSObject {
 
     private func refreshStatusButton() {
         let presentation = appState.presentation
-        statusItem.button?.image = makeImage(for: presentation.iconState)
+        configureAnimation(for: presentation.iconState)
+        updateStatusImage()
     }
 
     private func makeImage(for state: MenuBarIconState) -> NSImage? {
-        topIconProvider.image(for: state)
+        topIconProvider.image(for: state, frame: currentAnimationFrame)
+    }
+
+    private func configureAnimation(for state: MenuBarIconState) {
+        if currentIconState != state {
+            currentIconState = state
+            currentAnimationFrame = 0
+        }
+
+        animationTimer?.invalidate()
+        animationTimer = nil
+        settleToStaticAfterNextTick = false
+
+        switch state {
+        case .running, .waitingInput, .permission:
+            animationTimer = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: true) { [weak self] _ in
+                guard let self else { return }
+                self.currentAnimationFrame = (self.currentAnimationFrame + 1) % max(1, self.topIconProvider.frameCount(for: state))
+                self.updateStatusImage()
+            }
+        case .complete, .error:
+            settleToStaticAfterNextTick = true
+            animationTimer = Timer.scheduledTimer(withTimeInterval: 0.45, repeats: true) { [weak self] timer in
+                guard let self else { return }
+                self.currentAnimationFrame = 1
+                self.updateStatusImage()
+                if self.settleToStaticAfterNextTick {
+                    self.settleToStaticAfterNextTick = false
+                    self.currentAnimationFrame = 0
+                    self.updateStatusImage()
+                    timer.invalidate()
+                    self.animationTimer = nil
+                }
+            }
+        case .idle:
+            currentAnimationFrame = 0
+        }
+    }
+
+    private func updateStatusImage() {
+        statusItem.button?.image = makeImage(for: currentIconState)
     }
 
     private func makePopoverRootView() -> some View {
