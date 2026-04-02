@@ -72,6 +72,30 @@ final class MenuBarController: NSObject {
         let settingsItem = NSMenuItem(title: "Request Accessibility", action: #selector(openSettings(_:)), keyEquivalent: "")
         settingsItem.target = self
         menu.addItem(settingsItem)
+
+        menu.addItem(.separator())
+        let diagnosticsHeader = NSMenuItem(title: "Diagnostics", action: nil, keyEquivalent: "")
+        diagnosticsHeader.isEnabled = false
+        menu.addItem(diagnosticsHeader)
+
+        let diagnostics = appState.diagnosticsSnapshot
+        for line in [
+            diagnostics.transportStatus,
+            diagnostics.bridgeStatus,
+            "Accessibility: \(diagnostics.accessibilityStatus)",
+            "Last Event: \(diagnostics.lastEventText)",
+        ] {
+            let item = NSMenuItem(title: line, action: nil, keyEquivalent: "")
+            item.isEnabled = false
+            menu.addItem(item)
+        }
+
+        if let lastJumpError = diagnostics.lastJumpError {
+            let errorItem = NSMenuItem(title: "Last Jump Error: \(lastJumpError)", action: nil, keyEquivalent: "")
+            errorItem.isEnabled = false
+            menu.addItem(errorItem)
+        }
+
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
 
         self.menu = menu

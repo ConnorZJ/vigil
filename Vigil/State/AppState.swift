@@ -1,5 +1,13 @@
 import Foundation
 
+struct DiagnosticsSnapshot: Equatable {
+    let transportStatus: String
+    let bridgeStatus: String
+    let accessibilityStatus: String
+    let lastEventText: String
+    let lastJumpError: String?
+}
+
 final class AppState {
     private let clock: TimeProviding
     private let menuBuilder: SessionMenuBuilder
@@ -9,6 +17,9 @@ final class AppState {
     private let ghosttyWindowQueryService: GhosttyWindowQuerying
     private let ghosttyWindowBinder: GhosttyWindowBinder
     private let ghosttyWindowActivator: GhosttyWindowActivating
+    private let paths: Paths
+
+    private var lastJumpError: String?
 
     var onChange: (() -> Void)?
 
@@ -20,7 +31,8 @@ final class AppState {
         permissionService: AXPermissionProviding = AXPermissionService(),
         ghosttyWindowQueryService: GhosttyWindowQuerying = GhosttyAXWindowQueryService(),
         ghosttyWindowBinder: GhosttyWindowBinder? = nil,
-        ghosttyWindowActivator: GhosttyWindowActivating? = nil
+        ghosttyWindowActivator: GhosttyWindowActivating? = nil,
+        paths: Paths = Paths()
     ) {
         self.clock = clock
         self.menuBuilder = menuBuilder
@@ -30,6 +42,7 @@ final class AppState {
         self.ghosttyWindowQueryService = ghosttyWindowQueryService
         let binder = ghosttyWindowBinder ?? GhosttyWindowBinder(persistence: BindingPersistence(), clock: clock)
         self.ghosttyWindowBinder = binder
+        self.paths = paths
         self.ghosttyWindowActivator = ghosttyWindowActivator ?? GhosttyWindowActivator(
             queryService: ghosttyWindowQueryService,
             matcher: GhosttyWindowMatcher(),
@@ -63,6 +76,20 @@ final class AppState {
         permissionService.status
     }
 
+    var diagnosticsSnapshot: DiagnosticsSnapshot {
+        let fileManager = FileManager.default
+        let bridgeExists = fileManager.fileExists(atPath: paths.bridgeFile.path)
+        let lastEvent = sessionStore.allSnapshots.map(\.updatedAt).max()
+
+        return DiagnosticsSnapshot(
+            transportStatus: transportServer.port.map { "Listening on 127.0.0.1:\($0)" } ?? "Offline",
+            bridgeStatus: bridgeExists ? paths.bridgeFile.path : "Missing bridge file",
+            accessibilityStatus: accessibilityPermissionStatus == .granted ? "Granted" : "Not granted",
+            lastEventText: lastEvent.map { relativeTimestampText(from: $0) } ?? "No events received",
+            lastJumpError: lastJumpError
+        )
+    }
+
     func currentGhosttyWindows() -> [GhosttyWindowDescriptor] {
         (try? ghosttyWindowQueryService.currentWindows()) ?? []
     }
@@ -74,16 +101,22 @@ final class AppState {
 
         do {
             try ghosttyWindowActivator.activateBestWindow(for: snapshot)
+            lastJumpError = nil
         } catch {
+            lastJumpError = error.localizedDescription
             Logger.shared.log("Failed to activate Ghostty window: \(error.localizedDescription)")
         }
+
+        onChange?()
     }
 
     func bindFrontmostWindow(sessionId: String) {
         do {
             try ghosttyWindowActivator.bindFrontmostWindow(to: sessionId)
+            lastJumpError = nil
             onChange?()
         } catch {
+            lastJumpError = error.localizedDescription
             Logger.shared.log("Failed to bind Ghostty window: \(error.localizedDescription)")
         }
     }
@@ -159,5 +192,15 @@ final class AppState {
         case .running, .unknown:
             return "session.updated"
         }
+    }
+
+    private func relativeTimestampText(from date: Date) -> String {
+        let seconds = max(0, Int(clock.now.timeIntervalSince(date)))
+        if seconds < 60 {
+            return "\(seconds)s ago"
+        }
+
+        let minutes = seconds / 60
+        return "\(minutes)m ago"
     }
 }
