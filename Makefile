@@ -10,4 +10,4 @@ test:
 
 test-plugin:
 	cd plugin && "/Users/connor/.bun/bin/bun" test
-	cd plugin && "/Users/connor/.bun/bin/bun" run typecheck
+	cd plugin && "./node_modules/.bin/tsc" --noEmit
