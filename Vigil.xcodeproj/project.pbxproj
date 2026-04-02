@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1ED5EF1A726A8264D45615E5 /* SessionSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0156F9EBC5E3B422F0D43AB7 /* SessionSnapshotTests.swift */; };
 		24C626DE5DAA6B7724E50CD3 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA0B065129C92203581A39 /* MenuBarController.swift */; };
+		2C1C8A85619194EA7DE45672 /* WindowSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A213D544538662E947E9E02F /* WindowSignature.swift */; };
+		469D9E44F01C0D00B75C0035 /* SessionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEA3DA90BC3986C4AB89205 /* SessionStatus.swift */; };
 		487E1205647A790B900DEB7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A304F0167A7FC4B48DB34 /* AppDelegate.swift */; };
+		4A6388F4609DE61B85AC846C /* SessionPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81358C187C53DBF08542DFD9 /* SessionPriority.swift */; };
 		4E918135165BD99631013C85 /* SmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635BBBA650690B6C77CCCBE /* SmokeTests.swift */; };
 		5442EF26B7CA2E33A0365E5C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA9934EB3594A53050BECB1 /* Logger.swift */; };
+		7A54998813B65C49351B5410 /* SessionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C8EFCC7E0E759738AAEA74 /* SessionEvent.swift */; };
+		B712B2CDEC5608F15A62AC9F /* SessionSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0814A700DAC42D30741B46F /* SessionSnapshot.swift */; };
+		B7666CF66B1383A398649E6C /* SessionPriorityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB0A5609E134AB987EB0051 /* SessionPriorityTests.swift */; };
 		F14D6D0B0A1855F64912288D /* VigilApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BB2419160E8F3C8144DF1D /* VigilApp.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,16 +32,44 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0156F9EBC5E3B422F0D43AB7 /* SessionSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSnapshotTests.swift; sourceTree = "<group>"; };
+		2BEA3DA90BC3986C4AB89205 /* SessionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatus.swift; sourceTree = "<group>"; };
+		37C8EFCC7E0E759738AAEA74 /* SessionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEvent.swift; sourceTree = "<group>"; };
 		4A4A304F0167A7FC4B48DB34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		81358C187C53DBF08542DFD9 /* SessionPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPriority.swift; sourceTree = "<group>"; };
 		97FA0B065129C92203581A39 /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
+		A213D544538662E947E9E02F /* WindowSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSignature.swift; sourceTree = "<group>"; };
 		A3A079141EE3396A0D619BED /* VigilTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VigilTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6BB2419160E8F3C8144DF1D /* VigilApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VigilApp.swift; sourceTree = "<group>"; };
 		ABA9934EB3594A53050BECB1 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B635BBBA650690B6C77CCCBE /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
 		B85D36572956AF65600CE196 /* Vigil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vigil.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBB0A5609E134AB987EB0051 /* SessionPriorityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPriorityTests.swift; sourceTree = "<group>"; };
+		E0814A700DAC42D30741B46F /* SessionSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSnapshot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		0C0438E3267CF8C03D9C02C2 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				BBB0A5609E134AB987EB0051 /* SessionPriorityTests.swift */,
+				0156F9EBC5E3B422F0D43AB7 /* SessionSnapshotTests.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		16628F41665EDB2D74219103 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				37C8EFCC7E0E759738AAEA74 /* SessionEvent.swift */,
+				81358C187C53DBF08542DFD9 /* SessionPriority.swift */,
+				E0814A700DAC42D30741B46F /* SessionSnapshot.swift */,
+				2BEA3DA90BC3986C4AB89205 /* SessionStatus.swift */,
+				A213D544538662E947E9E02F /* WindowSignature.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
 		4B9C7B37A7D09F45EACE6303 /* Smoke */ = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +98,7 @@
 		9A7263839FC67DB70B23A6C6 /* VigilTests */ = {
 			isa = PBXGroup;
 			children = (
+				0C0438E3267CF8C03D9C02C2 /* Domain */,
 				4B9C7B37A7D09F45EACE6303 /* Smoke */,
 			);
 			path = VigilTests;
@@ -81,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				E13625EA1478DFCAD6D22579 /* App */,
+				16628F41665EDB2D74219103 /* Domain */,
 				8C4C9B0BCB7E0480F88D1DB9 /* Support */,
 			);
 			path = Vigil;
@@ -173,7 +210,12 @@
 				487E1205647A790B900DEB7E /* AppDelegate.swift in Sources */,
 				5442EF26B7CA2E33A0365E5C /* Logger.swift in Sources */,
 				24C626DE5DAA6B7724E50CD3 /* MenuBarController.swift in Sources */,
+				7A54998813B65C49351B5410 /* SessionEvent.swift in Sources */,
+				4A6388F4609DE61B85AC846C /* SessionPriority.swift in Sources */,
+				B712B2CDEC5608F15A62AC9F /* SessionSnapshot.swift in Sources */,
+				469D9E44F01C0D00B75C0035 /* SessionStatus.swift in Sources */,
 				F14D6D0B0A1855F64912288D /* VigilApp.swift in Sources */,
+				2C1C8A85619194EA7DE45672 /* WindowSignature.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +223,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7666CF66B1383A398649E6C /* SessionPriorityTests.swift in Sources */,
+				1ED5EF1A726A8264D45615E5 /* SessionSnapshotTests.swift in Sources */,
 				4E918135165BD99631013C85 /* SmokeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
