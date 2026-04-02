@@ -10,7 +10,6 @@ struct DiagnosticsSnapshot: Equatable {
 
 final class AppState {
     private let clock: TimeProviding
-    private let menuBuilder: SessionMenuBuilder
     private let sessionStore: SessionStore
     private let transportServer: EmbeddedHTTPServer
     private let permissionService: AXPermissionProviding
@@ -25,7 +24,6 @@ final class AppState {
 
     init(
         clock: TimeProviding = SystemTimeProvider(),
-        menuBuilder: SessionMenuBuilder = SessionMenuBuilder(),
         sessionStore: SessionStore = SessionStore(),
         transportServer: EmbeddedHTTPServer? = nil,
         permissionService: AXPermissionProviding = AXPermissionService(),
@@ -35,7 +33,6 @@ final class AppState {
         paths: Paths = Paths()
     ) {
         self.clock = clock
-        self.menuBuilder = menuBuilder
         self.sessionStore = sessionStore
         self.transportServer = transportServer ?? EmbeddedHTTPServer(sessionStore: sessionStore)
         self.permissionService = permissionService
@@ -52,7 +49,11 @@ final class AppState {
     }
 
     var presentation: SessionMenuPresentation {
-        menuBuilder.build(from: sessionStore.allSnapshots, now: clock.now)
+        SessionMenuBuilder().build(from: sessionStore.allSnapshots, now: clock.now)
+    }
+
+    var sessionSnapshots: [SessionSnapshot] {
+        sessionStore.allSnapshots
     }
 
     var menuActions: SessionMenuActions {
