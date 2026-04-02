@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		174FAA0D50555CA84212C927 /* UserNotificationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B567A47ED49EAB6D22EE88 /* UserNotificationClient.swift */; };
 		1B975B1D059A22E2C846C7E2 /* TestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71998DCB6E1AA3D57745BE /* TestSupport.swift */; };
 		1ED5EF1A726A8264D45615E5 /* SessionSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0156F9EBC5E3B422F0D43AB7 /* SessionSnapshotTests.swift */; };
+		1F332B917EA889228329707A /* NotificationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1A87CA31CD8E2225466CA /* NotificationPolicy.swift */; };
 		24C626DE5DAA6B7724E50CD3 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA0B065129C92203581A39 /* MenuBarController.swift */; };
 		2C1C8A85619194EA7DE45672 /* WindowSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A213D544538662E947E9E02F /* WindowSignature.swift */; };
 		2DB5B86A3178BA6B90960BA3 /* JSONFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DD7B53DD266D8BD72DC229 /* JSONFileStore.swift */; };
@@ -26,6 +28,7 @@
 		7E22111B8446BF2C1020E291 /* BridgeFileWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFC7A5DF0316DA2B3F0B03F /* BridgeFileWriterTests.swift */; };
 		82EEA604362FE92C8F20F75E /* SessionPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C93E626F08BA7B4427248C /* SessionPersistenceTests.swift */; };
 		84B977456C32EAA473CBA1F2 /* SessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EBE3197AF61746E3F8E707 /* SessionStoreTests.swift */; };
+		91EA3BDB0522CCFE5F77F1E5 /* NotificationPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEE74A8CE3EAE691D36DA71 /* NotificationPolicyTests.swift */; };
 		B712B2CDEC5608F15A62AC9F /* SessionSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0814A700DAC42D30741B46F /* SessionSnapshot.swift */; };
 		B7666CF66B1383A398649E6C /* SessionPriorityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB0A5609E134AB987EB0051 /* SessionPriorityTests.swift */; };
 		BD67B83F870E209B59779AF7 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48DD991D7B7D366A45B2 /* Clock.swift */; };
@@ -55,6 +58,7 @@
 		71AC48DD991D7B7D366A45B2 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		81358C187C53DBF08542DFD9 /* SessionPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPriority.swift; sourceTree = "<group>"; };
 		8240BD6508D7E391831626B1 /* BindingPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingPersistenceTests.swift; sourceTree = "<group>"; };
+		85B567A47ED49EAB6D22EE88 /* UserNotificationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationClient.swift; sourceTree = "<group>"; };
 		97FA0B065129C92203581A39 /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
 		A213D544538662E947E9E02F /* WindowSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSignature.swift; sourceTree = "<group>"; };
 		A3A079141EE3396A0D619BED /* VigilTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VigilTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,11 +68,13 @@
 		B85D36572956AF65600CE196 /* Vigil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vigil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBB0A5609E134AB987EB0051 /* SessionPriorityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPriorityTests.swift; sourceTree = "<group>"; };
 		C2EBE3197AF61746E3F8E707 /* SessionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStoreTests.swift; sourceTree = "<group>"; };
+		CAEE74A8CE3EAE691D36DA71 /* NotificationPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicyTests.swift; sourceTree = "<group>"; };
 		D421C63753B25E421494F702 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 		DE71998DCB6E1AA3D57745BE /* TestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSupport.swift; sourceTree = "<group>"; };
 		E0814A700DAC42D30741B46F /* SessionSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSnapshot.swift; sourceTree = "<group>"; };
 		E5C575F1EDBFB8344B9835A5 /* BindingPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingPersistence.swift; sourceTree = "<group>"; };
 		E7DD7B53DD266D8BD72DC229 /* JSONFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFileStore.swift; sourceTree = "<group>"; };
+		EDC1A87CA31CD8E2225466CA /* NotificationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicy.swift; sourceTree = "<group>"; };
 		EDFC7A5DF0316DA2B3F0B03F /* BridgeFileWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeFileWriterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				0C0438E3267CF8C03D9C02C2 /* Domain */,
+				DC66CA907BA18869BBA0A3CD /* Notifications */,
 				6E6FF23EB3C16E2DEA3A6FA1 /* Persistence */,
 				4B9C7B37A7D09F45EACE6303 /* Smoke */,
 				26AA66F170B5536C5B7542B2 /* State */,
@@ -184,11 +191,29 @@
 			children = (
 				E13625EA1478DFCAD6D22579 /* App */,
 				16628F41665EDB2D74219103 /* Domain */,
+				DA5706B260BD34D470139190 /* Notifications */,
 				1FA176F8F2D6893D39ECE50D /* Persistence */,
 				3BE9F1D58DB618A7E0022D21 /* State */,
 				8C4C9B0BCB7E0480F88D1DB9 /* Support */,
 			);
 			path = Vigil;
+			sourceTree = "<group>";
+		};
+		DA5706B260BD34D470139190 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				EDC1A87CA31CD8E2225466CA /* NotificationPolicy.swift */,
+				85B567A47ED49EAB6D22EE88 /* UserNotificationClient.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		DC66CA907BA18869BBA0A3CD /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				CAEE74A8CE3EAE691D36DA71 /* NotificationPolicyTests.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		E13625EA1478DFCAD6D22579 /* App */ = {
@@ -282,6 +307,7 @@
 				2DB5B86A3178BA6B90960BA3 /* JSONFileStore.swift in Sources */,
 				5442EF26B7CA2E33A0365E5C /* Logger.swift in Sources */,
 				24C626DE5DAA6B7724E50CD3 /* MenuBarController.swift in Sources */,
+				1F332B917EA889228329707A /* NotificationPolicy.swift in Sources */,
 				3D6C15E493A6A134F360DD74 /* Paths.swift in Sources */,
 				7A54998813B65C49351B5410 /* SessionEvent.swift in Sources */,
 				3B8227E150D548BCDC2AAE70 /* SessionPersistence.swift in Sources */,
@@ -289,6 +315,7 @@
 				B712B2CDEC5608F15A62AC9F /* SessionSnapshot.swift in Sources */,
 				469D9E44F01C0D00B75C0035 /* SessionStatus.swift in Sources */,
 				648924C17A528D45ADF75BCD /* SessionStore.swift in Sources */,
+				174FAA0D50555CA84212C927 /* UserNotificationClient.swift in Sources */,
 				F14D6D0B0A1855F64912288D /* VigilApp.swift in Sources */,
 				2C1C8A85619194EA7DE45672 /* WindowSignature.swift in Sources */,
 			);
@@ -300,6 +327,7 @@
 			files = (
 				F18C02A6A5345F71146CB30F /* BindingPersistenceTests.swift in Sources */,
 				7E22111B8446BF2C1020E291 /* BridgeFileWriterTests.swift in Sources */,
+				91EA3BDB0522CCFE5F77F1E5 /* NotificationPolicyTests.swift in Sources */,
 				82EEA604362FE92C8F20F75E /* SessionPersistenceTests.swift in Sources */,
 				B7666CF66B1383A398649E6C /* SessionPriorityTests.swift in Sources */,
 				1ED5EF1A726A8264D45615E5 /* SessionSnapshotTests.swift in Sources */,
