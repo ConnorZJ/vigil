@@ -10,6 +10,7 @@
 		14CD4B612F9C4A71872149B6 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8997B050467874866912F213 /* AppState.swift */; };
 		174FAA0D50555CA84212C927 /* UserNotificationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B567A47ED49EAB6D22EE88 /* UserNotificationClient.swift */; };
 		1B975B1D059A22E2C846C7E2 /* TestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71998DCB6E1AA3D57745BE /* TestSupport.swift */; };
+		1D294787794A06315EA5F7B8 /* GhosttyWindowActivator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C33FFC7D3AB3119E2BE185 /* GhosttyWindowActivator.swift */; };
 		1ED5EF1A726A8264D45615E5 /* SessionSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0156F9EBC5E3B422F0D43AB7 /* SessionSnapshotTests.swift */; };
 		1F332B917EA889228329707A /* NotificationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1A87CA31CD8E2225466CA /* NotificationPolicy.swift */; };
 		24C626DE5DAA6B7724E50CD3 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA0B065129C92203581A39 /* MenuBarController.swift */; };
@@ -83,6 +84,7 @@
 		649302057895CAB06BC35F78 /* SessionMenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMenuBuilder.swift; sourceTree = "<group>"; };
 		6E043764819394637ED39EEF /* SessionMenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMenuActions.swift; sourceTree = "<group>"; };
 		71AC48DD991D7B7D366A45B2 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		72C33FFC7D3AB3119E2BE185 /* GhosttyWindowActivator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowActivator.swift; sourceTree = "<group>"; };
 		81358C187C53DBF08542DFD9 /* SessionPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPriority.swift; sourceTree = "<group>"; };
 		8240BD6508D7E391831626B1 /* BindingPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingPersistenceTests.swift; sourceTree = "<group>"; };
 		85B567A47ED49EAB6D22EE88 /* UserNotificationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationClient.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 			children = (
 				E5ED287B09C371EE9E524C18 /* AXPermissionService.swift */,
 				35602E52068E7B012D1B92C1 /* GhosttyAXWindowQueryService.swift */,
+				72C33FFC7D3AB3119E2BE185 /* GhosttyWindowActivator.swift */,
 				B3F7C01D6C31D892E089CDA6 /* GhosttyWindowBinder.swift */,
 				B907853DC19836B386528A4A /* GhosttyWindowDescriptor.swift */,
 				28A42B9752507FC789A0117E /* GhosttyWindowMatcher.swift */,
@@ -409,6 +412,7 @@
 				49167EF9FA589DC718A7E863 /* EmbeddedHTTPServer.swift in Sources */,
 				61AABAE97269A05BC7307E84 /* EventIngestionController.swift in Sources */,
 				3ABC987527103A65F0BA33FE /* GhosttyAXWindowQueryService.swift in Sources */,
+				1D294787794A06315EA5F7B8 /* GhosttyWindowActivator.swift in Sources */,
 				3058BBAF7EB1877ECA61F123 /* GhosttyWindowBinder.swift in Sources */,
 				874F7BC856D1A7D4EAAB8775 /* GhosttyWindowDescriptor.swift in Sources */,
 				FB893AD1F89DCBA18994231D /* GhosttyWindowMatcher.swift in Sources */,
@@ -519,6 +523,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -623,6 +628,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

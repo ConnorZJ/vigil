@@ -7,6 +7,8 @@ final class AppState {
     private let transportServer: EmbeddedHTTPServer
     private let permissionService: AXPermissionProviding
     private let ghosttyWindowQueryService: GhosttyWindowQuerying
+    private let ghosttyWindowBinder: GhosttyWindowBinder
+    private let ghosttyWindowActivator: GhosttyWindowActivating
 
     var onChange: (() -> Void)?
 
@@ -16,7 +18,9 @@ final class AppState {
         sessionStore: SessionStore = SessionStore(),
         transportServer: EmbeddedHTTPServer? = nil,
         permissionService: AXPermissionProviding = AXPermissionService(),
-        ghosttyWindowQueryService: GhosttyWindowQuerying = GhosttyAXWindowQueryService()
+        ghosttyWindowQueryService: GhosttyWindowQuerying = GhosttyAXWindowQueryService(),
+        ghosttyWindowBinder: GhosttyWindowBinder? = nil,
+        ghosttyWindowActivator: GhosttyWindowActivating? = nil
     ) {
         self.clock = clock
         self.menuBuilder = menuBuilder
@@ -24,6 +28,14 @@ final class AppState {
         self.transportServer = transportServer ?? EmbeddedHTTPServer(sessionStore: sessionStore)
         self.permissionService = permissionService
         self.ghosttyWindowQueryService = ghosttyWindowQueryService
+        let binder = ghosttyWindowBinder ?? GhosttyWindowBinder(persistence: BindingPersistence(), clock: clock)
+        self.ghosttyWindowBinder = binder
+        self.ghosttyWindowActivator = ghosttyWindowActivator ?? GhosttyWindowActivator(
+            queryService: ghosttyWindowQueryService,
+            matcher: GhosttyWindowMatcher(),
+            binder: binder,
+            permissionService: permissionService
+        )
     }
 
     var presentation: SessionMenuPresentation {
@@ -31,7 +43,20 @@ final class AppState {
     }
 
     var menuActions: SessionMenuActions {
-        .noop
+        SessionMenuActions(
+            openSession: { [weak self] sessionId in
+                self?.openSession(sessionId: sessionId)
+            },
+            bindFrontmostWindow: { [weak self] sessionId in
+                self?.bindFrontmostWindow(sessionId: sessionId)
+            },
+            refreshMappings: { [weak self] in
+                self?.refreshMappings()
+            },
+            openSettings: { [weak self] in
+                self?.requestAccessibilityPermission()
+            }
+        )
     }
 
     var accessibilityPermissionStatus: AXPermissionStatus {
@@ -40,6 +65,36 @@ final class AppState {
 
     func currentGhosttyWindows() -> [GhosttyWindowDescriptor] {
         (try? ghosttyWindowQueryService.currentWindows()) ?? []
+    }
+
+    func openSession(sessionId: String) {
+        guard let snapshot = sessionStore.snapshot(for: sessionId) else {
+            return
+        }
+
+        do {
+            try ghosttyWindowActivator.activateBestWindow(for: snapshot)
+        } catch {
+            Logger.shared.log("Failed to activate Ghostty window: \(error.localizedDescription)")
+        }
+    }
+
+    func bindFrontmostWindow(sessionId: String) {
+        do {
+            try ghosttyWindowActivator.bindFrontmostWindow(to: sessionId)
+            onChange?()
+        } catch {
+            Logger.shared.log("Failed to bind Ghostty window: \(error.localizedDescription)")
+        }
+    }
+
+    func refreshMappings() {
+        onChange?()
+    }
+
+    func requestAccessibilityPermission() {
+        permissionService.requestAccessPrompt()
+        onChange?()
     }
 
     func bootstrap(seedPreviewData: Bool = false) {

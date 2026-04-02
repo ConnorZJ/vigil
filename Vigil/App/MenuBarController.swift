@@ -1,13 +1,16 @@
 import AppKit
 
-final class MenuBarController {
+final class MenuBarController: NSObject {
     private let statusItem: NSStatusItem
     private let appState: AppState
     private var menu: NSMenu?
+    private let actions: SessionMenuActions
 
     init(appState: AppState, statusBar: NSStatusBar = .system) {
         self.appState = appState
+        self.actions = appState.menuActions
         statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
+        super.init()
         statusItem.button?.imagePosition = .imageOnly
         statusItem.button?.image = makeImage(for: .idle)
 
@@ -43,17 +46,32 @@ final class MenuBarController {
             for row in section.rows {
                 let item = NSMenuItem(
                     title: "[\(row.statusText)] \(row.title) - \(row.projectName) - \(row.relativeUpdatedText)",
-                    action: nil,
+                    action: #selector(openSessionFromMenu(_:)),
                     keyEquivalent: ""
                 )
-                item.isEnabled = true
+                item.target = self
+                item.representedObject = row.sessionId
                 menu.addItem(item)
+
+                let bindItem = NSMenuItem(
+                    title: "Bind Frontmost to \(row.title)",
+                    action: #selector(bindFrontmostWindowFromMenu(_:)),
+                    keyEquivalent: ""
+                )
+                bindItem.target = self
+                bindItem.representedObject = row.sessionId
+                menu.addItem(bindItem)
             }
         }
 
         menu.addItem(.separator())
-        menu.addItem(NSMenuItem(title: "Refresh Mappings", action: nil, keyEquivalent: ""))
-        menu.addItem(NSMenuItem(title: "Settings", action: nil, keyEquivalent: ""))
+        let refreshItem = NSMenuItem(title: "Refresh Mappings", action: #selector(refreshMappings(_:)), keyEquivalent: "")
+        refreshItem.target = self
+        menu.addItem(refreshItem)
+
+        let settingsItem = NSMenuItem(title: "Request Accessibility", action: #selector(openSettings(_:)), keyEquivalent: "")
+        settingsItem.target = self
+        menu.addItem(settingsItem)
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
 
         self.menu = menu
@@ -81,5 +99,29 @@ final class MenuBarController {
         let image = NSImage(systemSymbolName: symbolName, accessibilityDescription: "Vigil status")
         image?.isTemplate = true
         return image
+    }
+
+    @objc private func openSessionFromMenu(_ sender: NSMenuItem) {
+        guard let sessionId = sender.representedObject as? String else {
+            return
+        }
+
+        actions.openSession(sessionId)
+    }
+
+    @objc private func bindFrontmostWindowFromMenu(_ sender: NSMenuItem) {
+        guard let sessionId = sender.representedObject as? String else {
+            return
+        }
+
+        actions.bindFrontmostWindow(sessionId)
+    }
+
+    @objc private func refreshMappings(_ sender: NSMenuItem) {
+        actions.refreshMappings()
+    }
+
+    @objc private func openSettings(_ sender: NSMenuItem) {
+        actions.openSettings()
     }
 }
