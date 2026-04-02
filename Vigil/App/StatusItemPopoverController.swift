@@ -1,6 +1,24 @@
 import AppKit
 import SwiftUI
 
+enum PopoverActionKind {
+    case jump
+    case bind
+    case refresh
+    case accessibility
+}
+
+enum PopoverDismissPolicy {
+    static func shouldClose(for action: PopoverActionKind, succeeded: Bool) -> Bool {
+        switch action {
+        case .jump:
+            return succeeded
+        case .bind, .refresh, .accessibility:
+            return false
+        }
+    }
+}
+
 enum PopoverVisibility: Equatable {
     case closed
     case open
@@ -15,15 +33,17 @@ enum PopoverVisibility: Equatable {
     }
 }
 
-final class StatusItemPopoverController {
+final class StatusItemPopoverController: NSObject, NSPopoverDelegate {
     private let popover: NSPopover
-    private let rootViewProvider: () -> AnyView
+    var rootViewProvider: () -> AnyView
     private(set) var visibility: PopoverVisibility = .closed
 
     init(rootViewProvider: @escaping () -> AnyView) {
         self.rootViewProvider = rootViewProvider
         self.popover = NSPopover()
+        super.init()
         popover.behavior = .transient
+        popover.delegate = self
     }
 
     func toggle(relativeTo button: NSStatusBarButton) {
@@ -46,5 +66,9 @@ final class StatusItemPopoverController {
         popover.contentViewController = NSHostingController(rootView: rootViewProvider())
         popover.contentSize = NSSize(width: 360, height: 420)
         popover.show(relativeTo: button.bounds, of: button, preferredEdge: .maxY)
+    }
+
+    func popoverDidClose(_ notification: Notification) {
+        visibility = .closed
     }
 }

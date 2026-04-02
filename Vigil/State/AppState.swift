@@ -95,30 +95,37 @@ final class AppState {
         (try? ghosttyWindowQueryService.currentWindows()) ?? []
     }
 
-    func openSession(sessionId: String) {
+    @discardableResult
+    func openSession(sessionId: String) -> Bool {
         guard let snapshot = sessionStore.snapshot(for: sessionId) else {
-            return
+            return false
         }
 
         do {
             try ghosttyWindowActivator.activateBestWindow(for: snapshot)
             lastJumpError = nil
+            onChange?()
+            return true
         } catch {
             lastJumpError = error.localizedDescription
             Logger.shared.log("Failed to activate Ghostty window: \(error.localizedDescription)")
+            onChange?()
+            return false
         }
-
-        onChange?()
     }
 
-    func bindFrontmostWindow(sessionId: String) {
+    @discardableResult
+    func bindFrontmostWindow(sessionId: String) -> Bool {
         do {
             try ghosttyWindowActivator.bindFrontmostWindow(to: sessionId)
             lastJumpError = nil
             onChange?()
+            return true
         } catch {
             lastJumpError = error.localizedDescription
             Logger.shared.log("Failed to bind Ghostty window: \(error.localizedDescription)")
+            onChange?()
+            return false
         }
     }
 

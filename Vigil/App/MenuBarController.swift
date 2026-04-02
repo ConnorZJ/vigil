@@ -13,17 +13,16 @@ final class MenuBarController: NSObject {
     init(appState: AppState, statusBar: NSStatusBar = .system) {
         self.appState = appState
         self.actions = appState.menuActions
-        self.popoverController = StatusItemPopoverController { [popoverPresentationBuilder, appState] in
-            let presentation = popoverPresentationBuilder.build(
-                from: appState.sessionSnapshots,
-                diagnostics: appState.diagnosticsSnapshot,
-                now: Date()
-            )
-
-            return AnyView(PopoverRootView(presentation: presentation, actions: appState.menuActions))
-        }
+        self.popoverController = StatusItemPopoverController { AnyView(EmptyView()) }
         statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
         super.init()
+        popoverController.rootViewProvider = { [weak self] in
+            guard let self else {
+                return AnyView(EmptyView())
+            }
+
+            return AnyView(self.makePopoverRootView())
+        }
         statusItem.button?.imagePosition = .imageOnly
         statusItem.button?.image = makeImage(for: .idle)
         statusItem.button?.target = self
@@ -44,6 +43,49 @@ final class MenuBarController: NSObject {
 
     private func makeImage(for state: MenuBarIconState) -> NSImage? {
         topIconProvider.image(for: state)
+    }
+
+    private func makePopoverRootView() -> some View {
+        let presentation = popoverPresentationBuilder.build(
+            from: appState.sessionSnapshots,
+            diagnostics: appState.diagnosticsSnapshot,
+            now: Date()
+        )
+
+        return PopoverRootView(presentation: presentation, actions: makePopoverActions())
+    }
+
+    private func makePopoverActions() -> SessionMenuActions {
+        SessionMenuActions(
+            openSession: { [weak self] sessionId in
+                guard let self else { return }
+                let succeeded = self.appState.openSession(sessionId: sessionId)
+                if PopoverDismissPolicy.shouldClose(for: .jump, succeeded: succeeded) {
+                    self.popoverController.close()
+                }
+            },
+            bindFrontmostWindow: { [weak self] sessionId in
+                guard let self else { return }
+                let succeeded = self.appState.bindFrontmostWindow(sessionId: sessionId)
+                if PopoverDismissPolicy.shouldClose(for: .bind, succeeded: succeeded) {
+                    self.popoverController.close()
+                }
+            },
+            refreshMappings: { [weak self] in
+                guard let self else { return }
+                self.appState.refreshMappings()
+                if PopoverDismissPolicy.shouldClose(for: .refresh, succeeded: true) {
+                    self.popoverController.close()
+                }
+            },
+            openSettings: { [weak self] in
+                guard let self else { return }
+                self.appState.requestAccessibilityPermission()
+                if PopoverDismissPolicy.shouldClose(for: .accessibility, succeeded: true) {
+                    self.popoverController.close()
+                }
+            }
+        )
     }
 
     @objc private func togglePopover(_ sender: NSStatusBarButton) {
