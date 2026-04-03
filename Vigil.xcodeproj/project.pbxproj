@@ -53,11 +53,13 @@
 		91EA3BDB0522CCFE5F77F1E5 /* NotificationPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEE74A8CE3EAE691D36DA71 /* NotificationPolicyTests.swift */; };
 		98F5AB98E32D5E9A561E6303 /* MenuBarTopIconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C7CA4120C5E0932BE17484 /* MenuBarTopIconProvider.swift */; };
 		A0EF8FBDA14C7AADBA6ACE3D /* PopoverPresentationBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A62DF0B12B130BACACB0E00 /* PopoverPresentationBuilderTests.swift */; };
+		A54CDF27CD3984FC1E289BFE /* EmbeddedHTTPServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5822CF077DFA4CC7DAD1970 /* EmbeddedHTTPServerTests.swift */; };
 		B029C05205164152264B668B /* StatusItemPopoverControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B042C60E24D8FCD721ED614 /* StatusItemPopoverControllerTests.swift */; };
 		B712B2CDEC5608F15A62AC9F /* SessionSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0814A700DAC42D30741B46F /* SessionSnapshot.swift */; };
 		B7666CF66B1383A398649E6C /* SessionPriorityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB0A5609E134AB987EB0051 /* SessionPriorityTests.swift */; };
 		B8255D27648CC822ED204A44 /* DiagnosticsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB2B4000469D13958B1FD59 /* DiagnosticsSectionView.swift */; };
 		BC9989D29F3005DB1CBE5D24 /* MenuBarTopIconProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C1AAFAA3A3CA666B2775DE /* MenuBarTopIconProviderTests.swift */; };
+		BD13D4B5294B68E78B11AFA7 /* HTTPServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B34F60FD632ED55E65B6A /* HTTPServerConnection.swift */; };
 		BD67B83F870E209B59779AF7 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48DD991D7B7D366A45B2 /* Clock.swift */; };
 		BEFAC9D914CD8979E7151C10 /* PopoverRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9327FDDBE9DA689BB1A6A7D2 /* PopoverRootView.swift */; };
 		D5D7CB42B1E26A2DCB740870 /* GhosttyWindowQuerying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3325EAC1FF545FC1161DF775 /* GhosttyWindowQuerying.swift */; };
@@ -87,6 +89,7 @@
 		28A42B9752507FC789A0117E /* GhosttyWindowMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowMatcher.swift; sourceTree = "<group>"; };
 		28E6E474CD4BB3219D96DF4D /* HTTPMessageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMessageParser.swift; sourceTree = "<group>"; };
 		2939726F63360A85B74EBB47 /* UtilityActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityActionsView.swift; sourceTree = "<group>"; };
+		2A2B34F60FD632ED55E65B6A /* HTTPServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPServerConnection.swift; sourceTree = "<group>"; };
 		2BEA3DA90BC3986C4AB89205 /* SessionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStatus.swift; sourceTree = "<group>"; };
 		3325EAC1FF545FC1161DF775 /* GhosttyWindowQuerying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowQuerying.swift; sourceTree = "<group>"; };
 		35602E52068E7B012D1B92C1 /* GhosttyAXWindowQueryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyAXWindowQueryService.swift; sourceTree = "<group>"; };
@@ -135,6 +138,7 @@
 		DB972166502388A53E7FE7CA /* AuthTokenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTokenProvider.swift; sourceTree = "<group>"; };
 		DE71998DCB6E1AA3D57745BE /* TestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSupport.swift; sourceTree = "<group>"; };
 		E0814A700DAC42D30741B46F /* SessionSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSnapshot.swift; sourceTree = "<group>"; };
+		E5822CF077DFA4CC7DAD1970 /* EmbeddedHTTPServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedHTTPServerTests.swift; sourceTree = "<group>"; };
 		E5C575F1EDBFB8344B9835A5 /* BindingPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingPersistence.swift; sourceTree = "<group>"; };
 		E5ED287B09C371EE9E524C18 /* AXPermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXPermissionService.swift; sourceTree = "<group>"; };
 		E7DD7B53DD266D8BD72DC229 /* JSONFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFileStore.swift; sourceTree = "<group>"; };
@@ -181,6 +185,7 @@
 				586857FC148ABB927E346D7F /* EmbeddedHTTPServer.swift */,
 				17CA6FBB1C857063A861683E /* EventIngestionController.swift */,
 				28E6E474CD4BB3219D96DF4D /* HTTPMessageParser.swift */,
+				2A2B34F60FD632ED55E65B6A /* HTTPServerConnection.swift */,
 			);
 			path = Transport;
 			sourceTree = "<group>";
@@ -326,6 +331,7 @@
 		DF5BFB0DCDA877EFFC8503C6 /* Transport */ = {
 			isa = PBXGroup;
 			children = (
+				E5822CF077DFA4CC7DAD1970 /* EmbeddedHTTPServerTests.swift */,
 				A4C4C3D0FB08ED05ED30D83E /* EventIngestionControllerTests.swift */,
 				70DE160CD25C3CCCA2D5144F /* HTTPMessageParserTests.swift */,
 			);
@@ -472,6 +478,7 @@
 				FB893AD1F89DCBA18994231D /* GhosttyWindowMatcher.swift in Sources */,
 				D5D7CB42B1E26A2DCB740870 /* GhosttyWindowQuerying.swift in Sources */,
 				E3DA91BC6840601D8CD96AE0 /* HTTPMessageParser.swift in Sources */,
+				BD13D4B5294B68E78B11AFA7 /* HTTPServerConnection.swift in Sources */,
 				2DB5B86A3178BA6B90960BA3 /* JSONFileStore.swift in Sources */,
 				5442EF26B7CA2E33A0365E5C /* Logger.swift in Sources */,
 				24C626DE5DAA6B7724E50CD3 /* MenuBarController.swift in Sources */,
@@ -506,6 +513,7 @@
 			files = (
 				F18C02A6A5345F71146CB30F /* BindingPersistenceTests.swift in Sources */,
 				7E22111B8446BF2C1020E291 /* BridgeFileWriterTests.swift in Sources */,
+				A54CDF27CD3984FC1E289BFE /* EmbeddedHTTPServerTests.swift in Sources */,
 				5E0E3F2515D187B7C4208A4C /* EventIngestionControllerTests.swift in Sources */,
 				82896903FE2EE8E7FDE1F4CF /* GhosttyWindowBinderTests.swift in Sources */,
 				28032444715AF46DFB08B3C5 /* GhosttyWindowMatcherTests.swift in Sources */,
