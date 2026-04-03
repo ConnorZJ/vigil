@@ -37,7 +37,7 @@ describe("VigilTransport", () => {
     const reader = new BridgeReader("/tmp/bridge.json", async () =>
       JSON.stringify({ version: 1, port: 48127, token: "secret", updatedAt: "2026-04-02T00:00:00.000Z" })
     )
-    const transport = new VigilTransport(reader, async (_url, init) => {
+    const transport = new VigilTransport(reader, async (_url: string, init?: RequestInit) => {
       authHeader = String((init?.headers as Record<string, string>).Authorization)
       return new Response(null, { status: 202 })
     })

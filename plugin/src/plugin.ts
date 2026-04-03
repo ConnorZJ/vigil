@@ -1,11 +1,11 @@
+import type { Plugin } from "@opencode-ai/plugin"
+import type { Event } from "@opencode-ai/sdk"
 import { mapOpencodeEvent } from "./mapper"
+import { metadataFromSessionEvent, opencodeEventToHookEvent } from "./opencode-adapter"
+import { BridgeReader } from "./bridge"
 import { SessionCache } from "./session-cache"
-import type { OpencodeHookEvent } from "./types"
-import type { VigilTransport } from "./transport"
-
-export interface HookRegistrar {
-  on(eventName: string, handler: (event: OpencodeHookEvent) => void | Promise<void>): void
-}
+import type { OpencodeHookEvent, SessionMetadata } from "./types"
+import { VigilTransport } from "./transport"
 
 export interface VigilPluginController {
   handle(event: OpencodeHookEvent): Promise<void>
@@ -70,8 +70,32 @@ export function createVigilPlugin(transport: VigilTransport): VigilPluginControl
   }
 }
 
-export function registerHooks(registrar: HookRegistrar, controller: VigilPluginController): void {
-  for (const eventName of ["update", "question", "permission", "complete", "error", "close"] as const) {
-    registrar.on(eventName, controller.handle)
+export const VigilPlugin: Plugin = async () => {
+  const controller = createVigilPlugin(new VigilTransport(new BridgeReader()))
+  const metadata = new Map<string, SessionMetadata>()
+
+  return {
+    event: async ({ event }: { event: Event }) => {
+      const payload: Event = ((event as any).payload ?? event) as Event
+
+      if (payload.type === "session.created" || payload.type === "session.updated") {
+        const sessionMetadata = metadataFromSessionEvent(payload)
+        metadata.set(sessionMetadata.sessionId, sessionMetadata)
+        return
+      }
+
+      const sessionID = "properties" in payload && (payload as any).properties?.sessionID ? (payload as any).properties.sessionID as string : undefined
+      const hookEvent = opencodeEventToHookEvent(payload, sessionID ? metadata.get(sessionID) : undefined)
+
+      if (!hookEvent) {
+        return
+      }
+
+      await controller.handle(hookEvent)
+
+      if (hookEvent.kind === "close") {
+        metadata.delete(hookEvent.sessionId)
+      }
+    },
   }
 }

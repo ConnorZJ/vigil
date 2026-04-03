@@ -9,8 +9,8 @@ final class MenuBarTopIconProviderTests: XCTestCase {
         for state in [MenuBarIconState.idle, .running, .waitingInput, .permission, .complete, .error] {
             let image = provider.image(for: state)
             XCTAssertNotNil(image)
-            XCTAssertEqual(image?.size.width, 16)
-            XCTAssertEqual(image?.size.height, 16)
+            XCTAssertEqual(image?.size.width, 18)
+            XCTAssertEqual(image?.size.height, 18)
             XCTAssertEqual(image?.isTemplate, false)
         }
     }
@@ -34,5 +34,14 @@ final class MenuBarTopIconProviderTests: XCTestCase {
         XCTAssertEqual(provider.frameCount(for: .permission), 2)
         XCTAssertEqual(provider.frameCount(for: .complete), 2)
         XCTAssertEqual(provider.frameCount(for: .error), 2)
+    }
+
+    func testPrimaryBodyFrameUsesLargerVisualProportion() {
+        let provider = MenuBarTopIconProvider()
+
+        XCTAssertEqual(provider.bodyFrame.origin.x, 3)
+        XCTAssertEqual(provider.bodyFrame.origin.y, 3)
+        XCTAssertEqual(provider.bodyFrame.width, 10)
+        XCTAssertEqual(provider.bodyFrame.height, 10)
     }
 }

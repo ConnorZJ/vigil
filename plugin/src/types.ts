@@ -65,3 +65,11 @@ export interface OpencodeHookEvent {
   tty?: string
   timestamp: string
 }
+
+export interface SessionMetadata {
+  sessionId: string
+  sessionTitle: string
+  projectPath: string
+  projectName: string
+  timestamp: string
+}

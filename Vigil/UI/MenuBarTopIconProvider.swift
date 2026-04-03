@@ -18,7 +18,8 @@ final class MenuBarTopIconProvider {
     }
 
     private let canvasSize: CGFloat = 16
-    private let imageSize = NSSize(width: 16, height: 16)
+    private let imageSize = NSSize(width: 18, height: 18)
+    let bodyFrame = CGRect(x: 3, y: 3, width: 10, height: 10)
 
     func image(for state: MenuBarIconState) -> NSImage? {
         image(for: state, frame: 0)
@@ -72,51 +73,51 @@ final class MenuBarTopIconProvider {
         switch state {
         case .idle:
             return [
-                .init(x: 4, y: 4, width: 8, height: 8, color: .topIdle),
-                .init(x: 6, y: 7, width: 1, height: 1, color: .topFace),
-                .init(x: 9, y: 7, width: 1, height: 1, color: .topFace)
+                .init(x: bodyFrame.origin.x, y: bodyFrame.origin.y, width: bodyFrame.width, height: bodyFrame.height, color: .topIdle),
+                .init(x: 5, y: 7, width: 1, height: 1, color: .topFace),
+                .init(x: 10, y: 7, width: 1, height: 1, color: .topFace)
             ]
         case .running:
             return [
-                .init(x: 4, y: 4, width: 8, height: 8, color: .topSkin),
-                .init(x: 6, y: 7, width: 1, height: 1, color: .topFace),
-                .init(x: 9, y: 7, width: 1, height: 1, color: .topFace),
-                .init(x: frame == 0 ? 12 : 1, y: frame == 0 ? 2 : 10, width: 2, height: 2, color: .topYellow)
+                .init(x: bodyFrame.origin.x, y: bodyFrame.origin.y, width: bodyFrame.width, height: bodyFrame.height, color: .topSkin),
+                .init(x: 5, y: 7, width: 1, height: 1, color: .topFace),
+                .init(x: 10, y: 7, width: 1, height: 1, color: .topFace),
+                .init(x: frame == 0 ? 12 : 1, y: frame == 0 ? 1 : 11, width: 2, height: 2, color: .topYellow)
             ]
         case .waitingInput:
             return [
-                .init(x: 4, y: 4, width: 8, height: 8, color: .topSkin),
-                .init(x: 6, y: 7, width: 1, height: 1, color: .topFace),
-                .init(x: 9, y: 7, width: 1, height: 1, color: .topFace),
+                .init(x: bodyFrame.origin.x, y: bodyFrame.origin.y, width: bodyFrame.width, height: bodyFrame.height, color: .topSkin),
+                .init(x: 5, y: 7, width: 1, height: 1, color: .topFace),
+                .init(x: 10, y: 7, width: 1, height: 1, color: .topFace),
                 .init(x: frame == 0 ? 12 : 11, y: 6, width: 1, height: 1, color: .topYellow),
                 .init(x: frame == 0 ? 13 : 12, y: 6, width: 1, height: 1, color: .topYellow),
                 .init(x: frame == 0 ? 14 : 13, y: 6, width: 1, height: 1, color: .topYellow)
             ]
         case .permission:
             return [
-                .init(x: 4, y: 4, width: 8, height: 8, color: .topSkin),
-                .init(x: 6, y: 7, width: 1, height: 1, color: .topFace),
-                .init(x: 9, y: 7, width: 1, height: 1, color: .topFace),
-                .init(x: 12, y: frame == 0 ? 4 : 3, width: 2, height: 3, color: .topBlue),
+                .init(x: bodyFrame.origin.x, y: bodyFrame.origin.y, width: bodyFrame.width, height: bodyFrame.height, color: .topSkin),
+                .init(x: 5, y: 7, width: 1, height: 1, color: .topFace),
+                .init(x: 10, y: 7, width: 1, height: 1, color: .topFace),
+                .init(x: 12, y: frame == 0 ? 3 : 2, width: 2, height: 4, color: .topBlue),
                 .init(x: 12, y: 7, width: 2, height: 1, color: .white)
             ]
         case .complete:
             return [
-                .init(x: 4, y: 4, width: 8, height: 8, color: .topSkin),
-                .init(x: 6, y: 7, width: 1, height: 1, color: .topFace),
-                .init(x: 9, y: 7, width: 1, height: 1, color: .topFace),
-                .init(x: 12, y: 3, width: 3, height: 3, color: .topGreen),
-                .init(x: 13, y: frame == 0 ? 5 : 4, width: 1, height: 1, color: .white),
-                .init(x: 14, y: frame == 0 ? 4 : 3, width: 1, height: 1, color: .white)
+                .init(x: bodyFrame.origin.x, y: bodyFrame.origin.y, width: bodyFrame.width, height: bodyFrame.height, color: .topSkin),
+                .init(x: 5, y: 7, width: 1, height: 1, color: .topFace),
+                .init(x: 10, y: 7, width: 1, height: 1, color: .topFace),
+                .init(x: 12, y: 2, width: 3, height: 3, color: .topGreen),
+                .init(x: 13, y: frame == 0 ? 4 : 3, width: 1, height: 1, color: .white),
+                .init(x: 14, y: frame == 0 ? 3 : 2, width: 1, height: 1, color: .white)
             ]
         case .error:
             return [
-                .init(x: 4, y: 4, width: 8, height: 8, color: .topSkin),
-                .init(x: 6, y: 6, width: 2, height: 2, color: .topFace),
-                .init(x: 8, y: 6, width: 2, height: 2, color: .topFace),
-                .init(x: 12, y: 3, width: 3, height: 3, color: .topRed),
-                .init(x: 13, y: 4, width: 1, height: 1, color: .white),
-                .init(x: 13, y: frame == 0 ? 5 : 6, width: 1, height: 1, color: .white)
+                .init(x: bodyFrame.origin.x, y: bodyFrame.origin.y, width: bodyFrame.width, height: bodyFrame.height, color: .topSkin),
+                .init(x: 5, y: 6, width: 2, height: 2, color: .topFace),
+                .init(x: 9, y: 6, width: 2, height: 2, color: .topFace),
+                .init(x: 12, y: 2, width: 3, height: 3, color: .topRed),
+                .init(x: 13, y: 3, width: 1, height: 1, color: .white),
+                .init(x: 13, y: frame == 0 ? 4 : 5, width: 1, height: 1, color: .white)
             ]
         }
     }
