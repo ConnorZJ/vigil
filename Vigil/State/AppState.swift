@@ -47,6 +47,9 @@ final class AppState {
             binder: binder,
             permissionService: permissionService
         )
+        self.transportServer.onStateChange = { [weak self] in
+            self?.onChange?()
+        }
     }
 
     var presentation: SessionMenuPresentation {
@@ -156,7 +159,7 @@ final class AppState {
             Logger.shared.log("Failed to start transport: \(error.localizedDescription)")
         }
 
-        if seedPreviewData {
+        if seedPreviewData && transportServer.lastReceivedEventAt == nil {
             seedPreviewSessions()
         }
 

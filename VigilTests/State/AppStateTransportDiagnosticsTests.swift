@@ -35,7 +35,7 @@ final class AppStateTransportDiagnosticsTests: XCTestCase {
     }
 }
 
-private struct FakeTransportServer: TransportServing {
+private final class FakeTransportServer: TransportServing {
     let port: Int?
     let token: String?
     let isListening: Bool
@@ -43,6 +43,25 @@ private struct FakeTransportServer: TransportServing {
     let lastErrorStage: TransportErrorStage?
     let lastErrorMessage: String?
     let lastReceivedEventAt: Date?
+    var onStateChange: (() -> Void)?
+
+    init(
+        port: Int?,
+        token: String?,
+        isListening: Bool,
+        bridgeWriteSucceeded: Bool,
+        lastErrorStage: TransportErrorStage?,
+        lastErrorMessage: String?,
+        lastReceivedEventAt: Date?
+    ) {
+        self.port = port
+        self.token = token
+        self.isListening = isListening
+        self.bridgeWriteSucceeded = bridgeWriteSucceeded
+        self.lastErrorStage = lastErrorStage
+        self.lastErrorMessage = lastErrorMessage
+        self.lastReceivedEventAt = lastReceivedEventAt
+    }
 
     func start(port: Int) throws {}
     func stop() {}

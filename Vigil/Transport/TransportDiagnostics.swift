@@ -14,7 +14,7 @@ struct TransportErrorFact: Equatable {
     let message: String
 }
 
-protocol TransportServing {
+protocol TransportServing: AnyObject {
     var port: Int? { get }
     var token: String? { get }
     var isListening: Bool { get }
@@ -22,6 +22,7 @@ protocol TransportServing {
     var lastErrorStage: TransportErrorStage? { get }
     var lastErrorMessage: String? { get }
     var lastReceivedEventAt: Date? { get }
+    var onStateChange: (() -> Void)? { get set }
 
     func start(port: Int) throws
     func stop()

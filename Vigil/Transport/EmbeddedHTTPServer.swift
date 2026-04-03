@@ -1,7 +1,7 @@
 import Foundation
 import Network
 
-final class EmbeddedHTTPServer {
+final class EmbeddedHTTPServer: TransportServing {
     private let sessionStore: SessionStore
     private let authTokenProvider: AuthTokenProvider
     private let bridgeWriter: BridgeWriting
@@ -15,9 +15,10 @@ final class EmbeddedHTTPServer {
     private(set) var token: String?
     private(set) var isListening = false
     private(set) var bridgeWriteSucceeded = false
-    private(set) var lastErrorStage: EmbeddedTransportErrorStage?
+    private(set) var lastErrorStage: TransportErrorStage?
     private(set) var lastErrorMessage: String?
     private(set) var lastReceivedEventAt: Date?
+    var onStateChange: (() -> Void)?
 
     init(
         sessionStore: SessionStore,
@@ -61,10 +62,12 @@ final class EmbeddedHTTPServer {
                         startupError = error
                     }
                 }
+                self.onStateChange?()
                 ready.signal()
             case .failed(let error):
                 self.lastErrorStage = .listener
                 self.lastErrorMessage = error.localizedDescription
+                self.onStateChange?()
                 startupError = error
                 ready.signal()
             default:
@@ -85,9 +88,11 @@ final class EmbeddedHTTPServer {
                 onError: { stage, message in
                     self.lastErrorStage = stage
                     self.lastErrorMessage = message
+                    self.onStateChange?()
                 },
                 onAcceptedEvent: {
                     self.lastReceivedEventAt = Date()
+                    self.onStateChange?()
                 },
                 onClose: { [weak self] in
                     guard let self else { return }
@@ -115,6 +120,7 @@ final class EmbeddedHTTPServer {
         listener?.cancel()
         listener = nil
         isListening = false
+        onStateChange?()
     }
 
     func makeController() -> EventIngestionController? {

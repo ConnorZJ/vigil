@@ -11,7 +11,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         self.appState = appState
         self.menuBarController = menuBarController
 
-        appState.bootstrap(seedPreviewData: true)
+        let previewModeEnabled = ProcessInfo.processInfo.environment["VIGIL_PREVIEW_SESSIONS"] == "1"
+        appState.bootstrap(seedPreviewData: previewModeEnabled)
         Logger.shared.log("Vigil launched")
     }
 }
