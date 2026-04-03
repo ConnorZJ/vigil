@@ -43,3 +43,7 @@ You can verify local delivery by:
 2. Confirming the bridge file exists
 3. Hitting the app health endpoint
 4. Triggering a mapped event and checking the menu updates
+
+## Real Listener Verification
+
+Once the app listener is running, this plugin should be able to deliver directly to the port and token described in `~/.config/vigil/bridge.json` without any additional proxy layer.

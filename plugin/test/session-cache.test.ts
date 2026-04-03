@@ -16,10 +16,14 @@ function makeEvent(status: VigilEvent["session"]["status"]): VigilEvent {
       projectName: "vigil",
       terminalApp: "ghostty",
       status,
+      updatedAt: "2026-04-02T00:00:00.000Z",
       windowHint: {
         cwd: "/tmp/vigil",
       },
       workspaceHint: null,
+      lastError: null,
+      requiresAttentionReason: null,
+      isStale: false,
     },
     payload: {
       message: null,

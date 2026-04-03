@@ -1,11 +1,6 @@
 import Foundation
 import Network
 
-enum EmbeddedTransportErrorStage: Equatable {
-    case listener
-    case parse
-}
-
 final class HTTPServerConnection {
     private let connection: NWConnection
     private let controller: EventIngestionController
@@ -13,7 +8,7 @@ final class HTTPServerConnection {
     private let serializer: HTTPMessageSerializer
     private let queue: DispatchQueue
     private let timeout: TimeInterval
-    private let onError: (EmbeddedTransportErrorStage, String) -> Void
+    private let onError: (TransportErrorStage, String) -> Void
     private let onAcceptedEvent: () -> Void
     private let onClose: () -> Void
     private var buffer = Data()
@@ -26,7 +21,7 @@ final class HTTPServerConnection {
         serializer: HTTPMessageSerializer,
         queue: DispatchQueue,
         timeout: TimeInterval,
-        onError: @escaping (EmbeddedTransportErrorStage, String) -> Void,
+        onError: @escaping (TransportErrorStage, String) -> Void,
         onAcceptedEvent: @escaping () -> Void,
         onClose: @escaping () -> Void
     ) {

@@ -17,7 +17,11 @@ function makeEvent(): VigilEvent {
       projectName: "vigil",
       terminalApp: "ghostty",
       status: "running",
+      updatedAt: "2026-04-02T00:00:00.000Z",
       workspaceHint: null,
+      lastError: null,
+      requiresAttentionReason: null,
+      isStale: false,
     },
     payload: {
       message: null,

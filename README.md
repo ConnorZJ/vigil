@@ -76,3 +76,4 @@ For local development, the important pieces are:
 - If the plugin cannot deliver events, confirm `~/.config/vigil/bridge.json` exists.
 - If Bun is not in your shell `PATH`, use `/Users/connor/.bun/bin/bun` directly.
 - If Xcode build settings drift, regenerate with `make generate` before debugging project file issues.
+- For real transport verification, first launch the app, then `curl http://127.0.0.1:<port>/v1/health` using the port from `~/.config/vigil/bridge.json`.

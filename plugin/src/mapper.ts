@@ -50,12 +50,19 @@ export function mapOpencodeEvent(event: OpencodeHookEvent): VigilEvent {
       projectName: event.projectName,
       terminalApp: "ghostty",
       status,
+      updatedAt: event.timestamp,
       windowHint: {
         cwd: event.cwd,
         tabTitle: event.tabTitle,
         tty: event.tty,
       },
       workspaceHint: null,
+      lastError: event.error ?? null,
+      requiresAttentionReason:
+        status === "waitingInput" || status === "permission" || status === "error"
+          ? event.message ?? event.error ?? null
+          : null,
+      isStale: false,
     },
     payload: {
       message: event.message ?? null,

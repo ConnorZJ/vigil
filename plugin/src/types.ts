@@ -28,8 +28,12 @@ export interface VigilSessionSnapshot {
   projectName: string
   terminalApp: "ghostty"
   status: VigilStatus
+  updatedAt: string
   windowHint?: WindowHint
   workspaceHint?: string | null
+  lastError?: string | null
+  requiresAttentionReason?: string | null
+  isStale: boolean
 }
 
 export interface VigilEventPayload {
