@@ -10,6 +10,7 @@ struct EventIngestionRequest {
 struct EventIngestionResponse {
     let statusCode: Int
     let body: Data
+    let headers: [String: String]
 }
 
 final class EventIngestionController {
@@ -27,20 +28,28 @@ final class EventIngestionController {
     }
 
     func handle(request: EventIngestionRequest) throws -> EventIngestionResponse {
+        if request.method == "GET", request.path == "/v1/health" {
+            return EventIngestionResponse(
+                statusCode: 200,
+                body: Data("{\"ok\":true}".utf8),
+                headers: ["Content-Type": "application/json"]
+            )
+        }
+
         guard request.headers["Authorization"] == "Bearer \(expectedToken)" else {
-            return EventIngestionResponse(statusCode: 401, body: Data())
+            return EventIngestionResponse(statusCode: 401, body: Data(), headers: [:])
         }
 
         guard request.method == "POST", request.path == "/v1/events" else {
-            return EventIngestionResponse(statusCode: 404, body: Data())
+            return EventIngestionResponse(statusCode: 404, body: Data(), headers: [:])
         }
 
         do {
             let event = try decoder.decode(SessionEvent.self, from: request.body)
             sessionStore.apply(event: event)
-            return EventIngestionResponse(statusCode: 202, body: Data())
+            return EventIngestionResponse(statusCode: 202, body: Data(), headers: [:])
         } catch {
-            return EventIngestionResponse(statusCode: 400, body: Data())
+            return EventIngestionResponse(statusCode: 400, body: Data(), headers: [:])
         }
     }
 }
