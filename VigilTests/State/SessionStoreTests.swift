@@ -52,6 +52,24 @@ final class SessionStoreTests: XCTestCase {
         XCTAssertEqual(store.snapshot(for: "a")?.status, .waitingInput)
     }
 
+    func testRestoredSnapshotDoesNotOverwriteNewerLiveEvent() {
+        let now = Date(timeIntervalSince1970: 1_712_000_000)
+        let store = SessionStore(clock: FixedClock(now: now))
+
+        store.apply(event: makeEvent(eventType: "session.waiting_input", sessionId: "a", status: .waitingInput, sentAt: now))
+        store.restore(snapshot: SessionSnapshot(
+            sessionId: "a",
+            sessionTitle: "title-a",
+            projectPath: "/tmp/project-a",
+            projectName: "project-a",
+            terminalApp: "ghostty",
+            status: .running,
+            updatedAt: now.addingTimeInterval(-30)
+        ))
+
+        XCTAssertEqual(store.snapshot(for: "a")?.status, .waitingInput)
+    }
+
     private func makeEvent(
         eventType: String,
         sessionId: String,

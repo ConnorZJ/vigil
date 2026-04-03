@@ -1,5 +1,9 @@
 import Foundation
 
+protocol SessionSnapshotLoading {
+    func load(now: Date) throws -> [SessionSnapshot]
+}
+
 struct SessionPersistence {
     private let fileStore: JSONFileStore
     private let paths: Paths
@@ -24,3 +28,5 @@ struct SessionPersistence {
         }
     }
 }
+
+extension SessionPersistence: SessionSnapshotLoading {}

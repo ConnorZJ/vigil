@@ -44,11 +44,19 @@ struct GhosttyAXWindowQueryService: GhosttyWindowQuerying {
         let position = pointAttribute(kAXPositionAttribute as CFString, from: element) ?? .zero
         let size = sizeAttribute(kAXSizeAttribute as CFString, from: element) ?? .zero
         let focused = boolAttribute(kAXFocusedAttribute as CFString, from: element) ?? false
+        let document = stringAttribute(kAXDocumentAttribute as CFString, from: element)
+        let cwd = document.map { path in
+            let url = URL(fileURLWithPath: path)
+            return url.hasDirectoryPath ? url.path : url.deletingLastPathComponent().path
+        }
 
         return GhosttyWindowDescriptor(
             title: title,
             frame: CGRect(origin: position, size: size),
-            isFocused: focused
+            isFocused: focused,
+            cwd: cwd,
+            tabTitle: title,
+            tty: nil
         )
     }
 

@@ -45,6 +45,18 @@ struct GhosttyWindowMatcher {
                 score += 25
             }
 
+            if let cwd = signature.cwd, window.cwd == cwd {
+                score += 200
+            }
+
+            if let tabTitle = signature.tabTitle, window.tabTitle == tabTitle {
+                score += 250
+            }
+
+            if let tty = signature.tty, window.tty == tty {
+                score += 300
+            }
+
             let signatureRect = CGRect(
                 x: signature.frame.x,
                 y: signature.frame.y,
