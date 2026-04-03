@@ -63,6 +63,17 @@ final class SessionStore {
         snapshotsBySessionId[sessionId] = snapshot
     }
 
+    func restore(snapshot: SessionSnapshot) {
+        let sessionId = snapshot.sessionId
+
+        if let latest = latestEventAtBySessionId[sessionId], snapshot.updatedAt < latest {
+            return
+        }
+
+        latestEventAtBySessionId[sessionId] = snapshot.updatedAt
+        snapshotsBySessionId[sessionId] = snapshot
+    }
+
     func markStaleSessions(now: Date? = nil) {
         let current = now ?? clock.now
 

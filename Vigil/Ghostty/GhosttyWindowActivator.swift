@@ -73,7 +73,7 @@ final class GhosttyWindowActivator: GhosttyWindowActivating {
         }
     }
 
-    private func raiseWindow(matching descriptor: GhosttyWindowDescriptor, processIdentifier: pid_t) throws {
+    private func raiseWindow(matching targetDescriptor: GhosttyWindowDescriptor, processIdentifier: pid_t) throws {
         let appElement = AXUIElementCreateApplication(processIdentifier)
         var value: CFTypeRef?
         let result = AXUIElementCopyAttributeValue(appElement, kAXWindowsAttribute as CFString, &value)
@@ -82,12 +82,7 @@ final class GhosttyWindowActivator: GhosttyWindowActivating {
         }
 
         for element in windows {
-            let title = stringAttribute(kAXTitleAttribute as CFString, from: element) ?? "Ghostty"
-            let position = pointAttribute(kAXPositionAttribute as CFString, from: element) ?? .zero
-            let size = sizeAttribute(kAXSizeAttribute as CFString, from: element) ?? .zero
-            let frame = CGRect(origin: position, size: size)
-
-            if title == descriptor.title, frameDistance(frame, descriptor.frame) < 20 {
+            if let candidate = descriptor(from: element), Self.descriptorMatches(candidate, target: targetDescriptor) {
                 let raiseResult = AXUIElementPerformAction(element, kAXRaiseAction as CFString)
                 guard raiseResult == .success else {
                     throw GhosttyWindowActivationError.activationFailed
@@ -97,6 +92,51 @@ final class GhosttyWindowActivator: GhosttyWindowActivating {
         }
 
         throw GhosttyWindowActivationError.noMatchingWindow
+    }
+
+    static func descriptorMatches(_ candidate: GhosttyWindowDescriptor, target: GhosttyWindowDescriptor) -> Bool {
+        guard candidate.title == target.title else {
+            return false
+        }
+
+        guard frameDistance(candidate.frame, target.frame) < 20 else {
+            return false
+        }
+
+        if let targetTTY = target.tty {
+            return candidate.tty == targetTTY
+        }
+
+        if let targetTabTitle = target.tabTitle {
+            return candidate.tabTitle == targetTabTitle
+        }
+
+        if let targetCWD = target.cwd {
+            return candidate.cwd == targetCWD
+        }
+
+        return true
+    }
+
+    private func descriptor(from element: AXUIElement) -> GhosttyWindowDescriptor? {
+        let title = stringAttribute(kAXTitleAttribute as CFString, from: element) ?? "Ghostty"
+        let position = pointAttribute(kAXPositionAttribute as CFString, from: element) ?? .zero
+        let size = sizeAttribute(kAXSizeAttribute as CFString, from: element) ?? .zero
+        let document = stringAttribute(kAXDocumentAttribute as CFString, from: element)
+
+        let cwd = document.map { path in
+            let url = URL(fileURLWithPath: path)
+            return url.hasDirectoryPath ? url.path : url.deletingLastPathComponent().path
+        }
+
+        return GhosttyWindowDescriptor(
+            title: title,
+            frame: CGRect(origin: position, size: size),
+            isFocused: false,
+            cwd: cwd,
+            tabTitle: title,
+            tty: nil
+        )
     }
 
     private func stringAttribute(_ attribute: CFString, from element: AXUIElement) -> String? {
@@ -142,7 +182,7 @@ final class GhosttyWindowActivator: GhosttyWindowActivating {
         return size
     }
 
-    private func frameDistance(_ lhs: CGRect, _ rhs: CGRect) -> CGFloat {
+    private static func frameDistance(_ lhs: CGRect, _ rhs: CGRect) -> CGFloat {
         abs(lhs.origin.x - rhs.origin.x) + abs(lhs.origin.y - rhs.origin.y) + abs(lhs.width - rhs.width) + abs(lhs.height - rhs.height)
     }
 }

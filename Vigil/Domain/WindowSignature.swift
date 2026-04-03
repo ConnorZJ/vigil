@@ -5,6 +5,25 @@ struct WindowSignature: Codable, Equatable {
     let title: String
     let frame: CGRectCodable
     let observedAt: Date
+    let cwd: String?
+    let tabTitle: String?
+    let tty: String?
+
+    init(
+        title: String,
+        frame: CGRectCodable,
+        observedAt: Date,
+        cwd: String? = nil,
+        tabTitle: String? = nil,
+        tty: String? = nil
+    ) {
+        self.title = title
+        self.frame = frame
+        self.observedAt = observedAt
+        self.cwd = cwd
+        self.tabTitle = tabTitle
+        self.tty = tty
+    }
 }
 
 struct CGRectCodable: Codable, Equatable {

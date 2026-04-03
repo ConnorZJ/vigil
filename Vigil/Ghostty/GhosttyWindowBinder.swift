@@ -15,7 +15,10 @@ final class GhosttyWindowBinder {
         bindings[sessionId] = WindowSignature(
             title: window.title,
             frame: CGRectCodable(window.frame),
-            observedAt: clock.now
+            observedAt: clock.now,
+            cwd: window.cwd,
+            tabTitle: window.tabTitle,
+            tty: window.tty
         )
         try persistence.save(bindings)
     }
@@ -44,6 +47,18 @@ final class GhosttyWindowBinder {
 
         if window.title == signature.title {
             score += 100
+        }
+
+        if let cwd = signature.cwd, window.cwd == cwd {
+            score += 200
+        }
+
+        if let tabTitle = signature.tabTitle, window.tabTitle == tabTitle {
+            score += 250
+        }
+
+        if let tty = signature.tty, window.tty == tty {
+            score += 300
         }
 
         let signatureRect = CGRect(

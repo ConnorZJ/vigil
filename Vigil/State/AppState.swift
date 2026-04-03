@@ -12,6 +12,7 @@ struct DiagnosticsSnapshot: Equatable {
 final class AppState {
     private let clock: TimeProviding
     private let sessionStore: SessionStore
+    private let sessionPersistence: SessionSnapshotLoading
     private let transportServer: TransportServing
     private let permissionService: AXPermissionProviding
     private let ghosttyWindowQueryService: GhosttyWindowQuerying
@@ -26,6 +27,7 @@ final class AppState {
     init(
         clock: TimeProviding = SystemTimeProvider(),
         sessionStore: SessionStore = SessionStore(),
+        sessionPersistence: SessionSnapshotLoading? = nil,
         transportServer: TransportServing? = nil,
         permissionService: AXPermissionProviding = AXPermissionService(),
         ghosttyWindowQueryService: GhosttyWindowQuerying = GhosttyAXWindowQueryService(),
@@ -35,6 +37,7 @@ final class AppState {
     ) {
         self.clock = clock
         self.sessionStore = sessionStore
+        self.sessionPersistence = sessionPersistence ?? SessionPersistence(paths: paths)
         self.transportServer = transportServer ?? EmbeddedHTTPServer(sessionStore: sessionStore)
         self.permissionService = permissionService
         self.ghosttyWindowQueryService = ghosttyWindowQueryService
@@ -153,6 +156,16 @@ final class AppState {
     }
 
     func bootstrap(seedPreviewData: Bool = false) {
+        do {
+            let restoredSnapshots = try sessionPersistence.load(now: clock.now)
+            for snapshot in restoredSnapshots {
+                sessionStore.restore(snapshot: snapshot)
+            }
+            sessionStore.markStaleSessions(now: clock.now)
+        } catch {
+            Logger.shared.log("Failed to restore persisted sessions: \(error.localizedDescription)")
+        }
+
         do {
             try transportServer.start(port: 48127)
         } catch {

@@ -33,6 +33,48 @@ final class AppStateTransportDiagnosticsTests: XCTestCase {
         XCTAssertEqual(diagnostics.lastEventText, "5s ago")
         XCTAssertEqual(diagnostics.lastTransportError, "auth: bad token")
     }
+
+    func testBootstrapRestoresPersistedSessionsBeforeTransportStarts() {
+        let now = Date(timeIntervalSince1970: 1_712_000_000)
+        let store = SessionStore(clock: FixedClock(now: now))
+        let restoredSnapshot = SessionSnapshot(
+            sessionId: "session-1",
+            sessionTitle: "title",
+            projectPath: "/tmp/project",
+            projectName: "project",
+            terminalApp: "ghostty",
+            status: .running,
+            updatedAt: now.addingTimeInterval(-5)
+        )
+        let transport = FakeTransportServer(
+            port: 48127,
+            token: "secret",
+            isListening: true,
+            bridgeWriteSucceeded: true,
+            lastErrorStage: nil,
+            lastErrorMessage: nil,
+            lastReceivedEventAt: nil
+        )
+        transport.onStart = {
+            XCTAssertEqual(store.snapshot(for: "session-1")?.status, .running)
+        }
+
+        let appState = AppState(
+            clock: FixedClock(now: now),
+            sessionStore: store,
+            sessionPersistence: FakeSessionPersistence(snapshots: [restoredSnapshot]),
+            transportServer: transport,
+            permissionService: FakePermissionService(status: .granted),
+            ghosttyWindowQueryService: FakeGhosttyWindowQueryService(),
+            ghosttyWindowBinder: GhosttyWindowBinder(persistence: InMemoryBindingPersistence(), clock: FixedClock(now: now)),
+            ghosttyWindowActivator: FakeGhosttyWindowActivator(),
+            paths: Paths(rootURL: temporaryDirectory())
+        )
+
+        appState.bootstrap()
+
+        XCTAssertEqual(appState.sessionSnapshots.map(\.sessionId), ["session-1"])
+    }
 }
 
 private final class FakeTransportServer: TransportServing {
@@ -44,6 +86,7 @@ private final class FakeTransportServer: TransportServing {
     let lastErrorMessage: String?
     let lastReceivedEventAt: Date?
     var onStateChange: (() -> Void)?
+    var onStart: (() -> Void)?
 
     init(
         port: Int?,
@@ -63,8 +106,18 @@ private final class FakeTransportServer: TransportServing {
         self.lastReceivedEventAt = lastReceivedEventAt
     }
 
-    func start(port: Int) throws {}
+    func start(port: Int) throws {
+        onStart?()
+    }
     func stop() {}
+}
+
+private struct FakeSessionPersistence: SessionSnapshotLoading {
+    let snapshots: [SessionSnapshot]
+
+    func load(now: Date) throws -> [SessionSnapshot] {
+        snapshots
+    }
 }
 
 private struct FakePermissionService: AXPermissionProviding {
