@@ -40,6 +40,10 @@ final class EventIngestionController {
             return EventIngestionResponse(statusCode: 401, body: Data(), headers: [:])
         }
 
+        if request.path == "/v1/events", request.method != "POST" {
+            return EventIngestionResponse(statusCode: 405, body: Data(), headers: [:])
+        }
+
         guard request.method == "POST", request.path == "/v1/events" else {
             return EventIngestionResponse(statusCode: 404, body: Data(), headers: [:])
         }

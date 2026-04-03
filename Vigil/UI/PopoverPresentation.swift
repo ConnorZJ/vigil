@@ -20,6 +20,7 @@ struct PopoverDiagnosticsPresentation: Equatable {
     let bridgeStatus: String
     let accessibilityStatus: String
     let lastEventText: String
+    let lastTransportError: String?
     let lastJumpError: String?
 }
 

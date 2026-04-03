@@ -5,13 +5,14 @@ struct DiagnosticsSnapshot: Equatable {
     let bridgeStatus: String
     let accessibilityStatus: String
     let lastEventText: String
+    let lastTransportError: String?
     let lastJumpError: String?
 }
 
 final class AppState {
     private let clock: TimeProviding
     private let sessionStore: SessionStore
-    private let transportServer: EmbeddedHTTPServer
+    private let transportServer: TransportServing
     private let permissionService: AXPermissionProviding
     private let ghosttyWindowQueryService: GhosttyWindowQuerying
     private let ghosttyWindowBinder: GhosttyWindowBinder
@@ -25,7 +26,7 @@ final class AppState {
     init(
         clock: TimeProviding = SystemTimeProvider(),
         sessionStore: SessionStore = SessionStore(),
-        transportServer: EmbeddedHTTPServer? = nil,
+        transportServer: TransportServing? = nil,
         permissionService: AXPermissionProviding = AXPermissionService(),
         ghosttyWindowQueryService: GhosttyWindowQuerying = GhosttyAXWindowQueryService(),
         ghosttyWindowBinder: GhosttyWindowBinder? = nil,
@@ -78,15 +79,25 @@ final class AppState {
     }
 
     var diagnosticsSnapshot: DiagnosticsSnapshot {
-        let fileManager = FileManager.default
-        let bridgeExists = fileManager.fileExists(atPath: paths.bridgeFile.path)
-        let lastEvent = sessionStore.allSnapshots.map(\.updatedAt).max()
+        let bridgeStatus: String
+        if transportServer.bridgeWriteSucceeded {
+            bridgeStatus = "Bridge written: \(paths.bridgeFile.path)"
+        } else {
+            bridgeStatus = "Bridge write failed"
+        }
+
+        let lastTransportError: String? = if let stage = transportServer.lastErrorStage, let message = transportServer.lastErrorMessage {
+            "\(stage.rawValue): \(message)"
+        } else {
+            nil
+        }
 
         return DiagnosticsSnapshot(
-            transportStatus: transportServer.port.map { "Listening on 127.0.0.1:\($0)" } ?? "Offline",
-            bridgeStatus: bridgeExists ? paths.bridgeFile.path : "Missing bridge file",
+            transportStatus: transportServer.isListening ? "Listening on 127.0.0.1:\(transportServer.port ?? 0)" : "Offline",
+            bridgeStatus: bridgeStatus,
             accessibilityStatus: accessibilityPermissionStatus == .granted ? "Granted" : "Not granted",
-            lastEventText: lastEvent.map { relativeTimestampText(from: $0) } ?? "No events received",
+            lastEventText: transportServer.lastReceivedEventAt.map { relativeTimestampText(from: $0) } ?? "No events received",
+            lastTransportError: lastTransportError,
             lastJumpError: lastJumpError
         )
     }
@@ -140,7 +151,7 @@ final class AppState {
 
     func bootstrap(seedPreviewData: Bool = false) {
         do {
-            try transportServer.start()
+            try transportServer.start(port: 48127)
         } catch {
             Logger.shared.log("Failed to start transport: \(error.localizedDescription)")
         }

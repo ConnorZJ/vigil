@@ -28,6 +28,7 @@ struct PopoverPresentationBuilder {
             bridgeStatus: diagnostics.bridgeStatus,
             accessibilityStatus: diagnostics.accessibilityStatus,
             lastEventText: diagnostics.lastEventText,
+            lastTransportError: diagnostics.lastTransportError,
             lastJumpError: diagnostics.lastJumpError
         )
 

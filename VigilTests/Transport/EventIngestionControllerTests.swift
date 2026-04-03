@@ -3,6 +3,55 @@ import XCTest
 @testable import Vigil
 
 final class EventIngestionControllerTests: XCTestCase {
+    func testHealthRouteReturnsJsonBody() throws {
+        let store = SessionStore(clock: FixedClock())
+        let controller = EventIngestionController(expectedToken: "secret", sessionStore: store)
+
+        let response = try controller.handle(
+            request: .init(
+                method: "GET",
+                path: "/v1/health",
+                headers: [:],
+                body: Data()
+            )
+        )
+
+        XCTAssertEqual(response.statusCode, 200)
+        XCTAssertEqual(String(decoding: response.body, as: UTF8.self), "{\"ok\":true}")
+    }
+
+    func testWrongMethodOnKnownRouteReturns405() throws {
+        let store = SessionStore(clock: FixedClock())
+        let controller = EventIngestionController(expectedToken: "secret", sessionStore: store)
+
+        let response = try controller.handle(
+            request: .init(
+                method: "GET",
+                path: "/v1/events",
+                headers: ["Authorization": "Bearer secret"],
+                body: Data()
+            )
+        )
+
+        XCTAssertEqual(response.statusCode, 405)
+    }
+
+    func testUnknownRouteReturns404() throws {
+        let store = SessionStore(clock: FixedClock())
+        let controller = EventIngestionController(expectedToken: "secret", sessionStore: store)
+
+        let response = try controller.handle(
+            request: .init(
+                method: "GET",
+                path: "/v1/unknown",
+                headers: ["Authorization": "Bearer secret"],
+                body: Data()
+            )
+        )
+
+        XCTAssertEqual(response.statusCode, 404)
+    }
+
     func testRejectsMissingAuthorization() throws {
         let store = SessionStore(clock: FixedClock())
         let controller = EventIngestionController(expectedToken: "secret", sessionStore: store)

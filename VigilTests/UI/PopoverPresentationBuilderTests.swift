@@ -11,6 +11,7 @@ final class PopoverPresentationBuilderTests: XCTestCase {
             bridgeStatus: "~/.config/vigil/bridge.json",
             accessibilityStatus: "Granted",
             lastEventText: "5s ago",
+            lastTransportError: nil,
             lastJumpError: nil
         )
 
@@ -25,8 +26,15 @@ final class PopoverPresentationBuilderTests: XCTestCase {
         )
 
         XCTAssertEqual(
-            presentation.sections.map(\.kind),
-            [.summary, .needsAttention, .running, .recentlyCompleted, .diagnostics, .utilityActions]
+            presentation.sections.map { $0.kind },
+            [
+                PopoverSectionPresentation.Kind.summary,
+                .needsAttention,
+                .running,
+                .recentlyCompleted,
+                .diagnostics,
+                .utilityActions,
+            ]
         )
     }
 
@@ -74,6 +82,7 @@ final class PopoverPresentationBuilderTests: XCTestCase {
             bridgeStatus: "~/.config/vigil/bridge.json",
             accessibilityStatus: "Granted",
             lastEventText: "12s ago",
+            lastTransportError: "route: bad path",
             lastJumpError: "No matching window"
         )
 
@@ -83,6 +92,7 @@ final class PopoverPresentationBuilderTests: XCTestCase {
         XCTAssertEqual(presentation.diagnostics.bridgeStatus, "~/.config/vigil/bridge.json")
         XCTAssertEqual(presentation.diagnostics.accessibilityStatus, "Granted")
         XCTAssertEqual(presentation.diagnostics.lastEventText, "12s ago")
+        XCTAssertEqual(presentation.diagnostics.lastTransportError, "route: bad path")
         XCTAssertEqual(presentation.diagnostics.lastJumpError, "No matching window")
     }
 
@@ -92,6 +102,7 @@ final class PopoverPresentationBuilderTests: XCTestCase {
             bridgeStatus: "~/.config/vigil/bridge.json",
             accessibilityStatus: "Granted",
             lastEventText: "5s ago",
+            lastTransportError: nil,
             lastJumpError: nil
         )
     }

@@ -51,6 +51,7 @@
 		874F7BC856D1A7D4EAAB8775 /* GhosttyWindowDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B907853DC19836B386528A4A /* GhosttyWindowDescriptor.swift */; };
 		8930B07C96D4093822A3C554 /* AuthTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB972166502388A53E7FE7CA /* AuthTokenProvider.swift */; };
 		91EA3BDB0522CCFE5F77F1E5 /* NotificationPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEE74A8CE3EAE691D36DA71 /* NotificationPolicyTests.swift */; };
+		95801B8B635776AA35999B5C /* TransportDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E583E04FB38F667B4EDA1F8 /* TransportDiagnostics.swift */; };
 		98F5AB98E32D5E9A561E6303 /* MenuBarTopIconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C7CA4120C5E0932BE17484 /* MenuBarTopIconProvider.swift */; };
 		A0EF8FBDA14C7AADBA6ACE3D /* PopoverPresentationBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A62DF0B12B130BACACB0E00 /* PopoverPresentationBuilderTests.swift */; };
 		A54CDF27CD3984FC1E289BFE /* EmbeddedHTTPServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5822CF077DFA4CC7DAD1970 /* EmbeddedHTTPServerTests.swift */; };
@@ -62,6 +63,7 @@
 		BD13D4B5294B68E78B11AFA7 /* HTTPServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B34F60FD632ED55E65B6A /* HTTPServerConnection.swift */; };
 		BD67B83F870E209B59779AF7 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48DD991D7B7D366A45B2 /* Clock.swift */; };
 		BEFAC9D914CD8979E7151C10 /* PopoverRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9327FDDBE9DA689BB1A6A7D2 /* PopoverRootView.swift */; };
+		C7EDACC6860BC1AD4B7C130A /* AppStateTransportDiagnosticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB8A233BE11448A477E7DCA /* AppStateTransportDiagnosticsTests.swift */; };
 		D5D7CB42B1E26A2DCB740870 /* GhosttyWindowQuerying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3325EAC1FF545FC1161DF775 /* GhosttyWindowQuerying.swift */; };
 		DA72ABC32138AAF96083DB94 /* SessionMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E043764819394637ED39EEF /* SessionMenuActions.swift */; };
 		E3DA91BC6840601D8CD96AE0 /* HTTPMessageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E6E474CD4BB3219D96DF4D /* HTTPMessageParser.swift */; };
@@ -85,6 +87,7 @@
 		0156F9EBC5E3B422F0D43AB7 /* SessionSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSnapshotTests.swift; sourceTree = "<group>"; };
 		17CA6FBB1C857063A861683E /* EventIngestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventIngestionController.swift; sourceTree = "<group>"; };
 		18061D64817AF8F554FD0C37 /* SessionPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPersistence.swift; sourceTree = "<group>"; };
+		1E583E04FB38F667B4EDA1F8 /* TransportDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportDiagnostics.swift; sourceTree = "<group>"; };
 		2763E534CCE2D6573FF0946F /* SessionMenuRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMenuRowViewModel.swift; sourceTree = "<group>"; };
 		28A42B9752507FC789A0117E /* GhosttyWindowMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowMatcher.swift; sourceTree = "<group>"; };
 		28E6E474CD4BB3219D96DF4D /* HTTPMessageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMessageParser.swift; sourceTree = "<group>"; };
@@ -122,6 +125,7 @@
 		A6BB2419160E8F3C8144DF1D /* VigilApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VigilApp.swift; sourceTree = "<group>"; };
 		A6FD0CF883E1551DF62B1992 /* PixelArtMenuIconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelArtMenuIconProvider.swift; sourceTree = "<group>"; };
 		AAB2B4000469D13958B1FD59 /* DiagnosticsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsSectionView.swift; sourceTree = "<group>"; };
+		AAB8A233BE11448A477E7DCA /* AppStateTransportDiagnosticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateTransportDiagnosticsTests.swift; sourceTree = "<group>"; };
 		ABA9934EB3594A53050BECB1 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B3F7C01D6C31D892E089CDA6 /* GhosttyWindowBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosttyWindowBinder.swift; sourceTree = "<group>"; };
 		B635BBBA650690B6C77CCCBE /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 				17CA6FBB1C857063A861683E /* EventIngestionController.swift */,
 				28E6E474CD4BB3219D96DF4D /* HTTPMessageParser.swift */,
 				2A2B34F60FD632ED55E65B6A /* HTTPServerConnection.swift */,
+				1E583E04FB38F667B4EDA1F8 /* TransportDiagnostics.swift */,
 			);
 			path = Transport;
 			sourceTree = "<group>";
@@ -204,6 +209,7 @@
 		26AA66F170B5536C5B7542B2 /* State */ = {
 			isa = PBXGroup;
 			children = (
+				AAB8A233BE11448A477E7DCA /* AppStateTransportDiagnosticsTests.swift */,
 				C2EBE3197AF61746E3F8E707 /* SessionStoreTests.swift */,
 			);
 			path = State;
@@ -500,6 +506,7 @@
 				469D9E44F01C0D00B75C0035 /* SessionStatus.swift in Sources */,
 				648924C17A528D45ADF75BCD /* SessionStore.swift in Sources */,
 				6C6A47A0B48A978E96677DF6 /* StatusItemPopoverController.swift in Sources */,
+				95801B8B635776AA35999B5C /* TransportDiagnostics.swift in Sources */,
 				174FAA0D50555CA84212C927 /* UserNotificationClient.swift in Sources */,
 				0D4981A870005DF1F9D10298 /* UtilityActionsView.swift in Sources */,
 				F14D6D0B0A1855F64912288D /* VigilApp.swift in Sources */,
@@ -511,6 +518,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7EDACC6860BC1AD4B7C130A /* AppStateTransportDiagnosticsTests.swift in Sources */,
 				F18C02A6A5345F71146CB30F /* BindingPersistenceTests.swift in Sources */,
 				7E22111B8446BF2C1020E291 /* BridgeFileWriterTests.swift in Sources */,
 				A54CDF27CD3984FC1E289BFE /* EmbeddedHTTPServerTests.swift in Sources */,

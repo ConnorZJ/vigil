@@ -13,6 +13,9 @@ struct DiagnosticsSectionView: View {
                 Text(diagnostics.bridgeStatus)
                 Text("Accessibility: \(diagnostics.accessibilityStatus)")
                 Text("Last Event: \(diagnostics.lastEventText)")
+                if let lastTransportError = diagnostics.lastTransportError {
+                    Text("Last Transport Error: \(lastTransportError)")
+                }
                 if let lastJumpError = diagnostics.lastJumpError {
                     Text("Last Jump Error: \(lastJumpError)")
                 }
