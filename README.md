@@ -70,10 +70,22 @@ For local development, the important pieces are:
 - plugin entry exports: `plugin/src/index.ts`
 - plugin tests: `make test-plugin`
 
+## Session Lifecycle
+
+Vigil shows active and recently active OpenCode sessions in a session panel.
+
+Sessions appear when Vigil receives activity from OpenCode, remain visible for a short period after becoming idle, and are removed automatically after staying idle long enough. Explicitly deleted sessions are removed immediately.
+
+See `docs/session-lifecycle.md` for the full behavior.
+
 ## Troubleshooting
 
 - If the menu updates but jumps do not work, check macOS Accessibility permission.
 - If the plugin cannot deliver events, confirm `~/.config/vigil/bridge.json` exists.
-- If Bun is not in your shell `PATH`, use `/Users/connor/.bun/bin/bun` directly.
+- If Bun is not in your shell `PATH`, use `$HOME/.bun/bin/bun` directly.
 - If Xcode build settings drift, regenerate with `make generate` before debugging project file issues.
 - For real transport verification, first launch the app, then `curl http://127.0.0.1:<port>/v1/health` using the port from `~/.config/vigil/bridge.json`.
+
+## License
+
+MIT. See `LICENSE`.

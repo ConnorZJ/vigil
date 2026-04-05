@@ -75,6 +75,137 @@ final class AppStateTransportDiagnosticsTests: XCTestCase {
 
         XCTAssertEqual(appState.sessionSnapshots.map(\.sessionId), ["session-1"])
     }
+
+    func testSessionSnapshotsDropCompletedSessionsPastRetentionWindow() {
+        let now = Date(timeIntervalSince1970: 1_712_000_000)
+        let store = SessionStore(clock: FixedClock(now: now))
+        store.apply(event: SessionEvent(
+            eventId: UUID().uuidString,
+            eventType: "session.completed",
+            sentAt: now.addingTimeInterval(-(10 * 60 + 1)),
+            session: SessionSnapshot(
+                sessionId: "session-1",
+                sessionTitle: "title",
+                projectPath: "/tmp/project",
+                projectName: "project",
+                terminalApp: "ghostty",
+                status: .complete,
+                updatedAt: now.addingTimeInterval(-(10 * 60 + 1))
+            )
+        ))
+        let appState = AppState(
+            clock: FixedClock(now: now),
+            sessionStore: store,
+            transportServer: FakeTransportServer(
+                port: 48127,
+                token: "secret",
+                isListening: true,
+                bridgeWriteSucceeded: true,
+                lastErrorStage: nil,
+                lastErrorMessage: nil,
+                lastReceivedEventAt: nil
+            ),
+            permissionService: FakePermissionService(status: .granted),
+            ghosttyWindowQueryService: FakeGhosttyWindowQueryService(),
+            ghosttyWindowBinder: GhosttyWindowBinder(persistence: InMemoryBindingPersistence(), clock: FixedClock(now: now)),
+            ghosttyWindowActivator: FakeGhosttyWindowActivator(),
+            paths: Paths(rootURL: temporaryDirectory())
+        )
+
+        XCTAssertTrue(appState.sessionSnapshots.isEmpty)
+    }
+
+    func testBootstrapSchedulesAutomaticHousekeepingThatRemovesExpiredCompletedSessions() {
+        let now = Date(timeIntervalSince1970: 1_712_000_000)
+        let clock = MutableClock(now: now)
+        let scheduler = FakeRepeatingTaskScheduler()
+        let store = SessionStore(clock: clock)
+        store.apply(event: SessionEvent(
+            eventId: UUID().uuidString,
+            eventType: "session.completed",
+            sentAt: now,
+            session: SessionSnapshot(
+                sessionId: "session-1",
+                sessionTitle: "title",
+                projectPath: "/tmp/project",
+                projectName: "project",
+                terminalApp: "ghostty",
+                status: .complete,
+                updatedAt: now
+            )
+        ))
+        let appState = AppState(
+            clock: clock,
+            sessionStore: store,
+            transportServer: FakeTransportServer(
+                port: 48127,
+                token: "secret",
+                isListening: true,
+                bridgeWriteSucceeded: true,
+                lastErrorStage: nil,
+                lastErrorMessage: nil,
+                lastReceivedEventAt: nil
+            ),
+            permissionService: FakePermissionService(status: .granted),
+            ghosttyWindowQueryService: FakeGhosttyWindowQueryService(),
+            ghosttyWindowBinder: GhosttyWindowBinder(persistence: InMemoryBindingPersistence(), clock: clock),
+            ghosttyWindowActivator: FakeGhosttyWindowActivator(),
+            paths: Paths(rootURL: temporaryDirectory()),
+            housekeepingScheduler: scheduler,
+            housekeepingInterval: 30
+        )
+        var changeCount = 0
+        appState.onChange = {
+            changeCount += 1
+        }
+
+        appState.bootstrap()
+        XCTAssertEqual(scheduler.scheduledIntervals, [30])
+        XCTAssertNotNil(store.snapshot(for: "session-1"))
+
+        let changesAfterBootstrap = changeCount
+        clock.now = now.addingTimeInterval(10 * 60 + 1)
+        scheduler.fire()
+
+        XCTAssertNil(store.snapshot(for: "session-1"))
+        XCTAssertEqual(changeCount, changesAfterBootstrap + 1)
+    }
+
+    func testTransportStateChangesNotifyOnMainThread() {
+        let now = Date(timeIntervalSince1970: 1_712_000_000)
+        let transport = FakeTransportServer(
+            port: 48127,
+            token: "secret",
+            isListening: true,
+            bridgeWriteSucceeded: true,
+            lastErrorStage: nil,
+            lastErrorMessage: nil,
+            lastReceivedEventAt: nil
+        )
+        let appState = AppState(
+            clock: FixedClock(now: now),
+            sessionStore: SessionStore(clock: FixedClock(now: now)),
+            transportServer: transport,
+            permissionService: FakePermissionService(status: .granted),
+            ghosttyWindowQueryService: FakeGhosttyWindowQueryService(),
+            ghosttyWindowBinder: GhosttyWindowBinder(persistence: InMemoryBindingPersistence(), clock: FixedClock(now: now)),
+            ghosttyWindowActivator: FakeGhosttyWindowActivator(),
+            paths: Paths(rootURL: temporaryDirectory())
+        )
+        let callbackExpectation = expectation(description: "transport state change callback")
+        var callbackOnMainThread = false
+        appState.onChange = {
+            callbackOnMainThread = Thread.isMainThread
+            callbackExpectation.fulfill()
+        }
+
+        DispatchQueue.global().async {
+            transport.onStateChange?()
+        }
+
+        wait(for: [callbackExpectation], timeout: 1)
+        XCTAssertTrue(callbackOnMainThread)
+    }
 }
 
 private final class FakeTransportServer: TransportServing {
@@ -138,4 +269,32 @@ private struct InMemoryBindingPersistence: BindingPersisting {
 private struct FakeGhosttyWindowActivator: GhosttyWindowActivating {
     func activateBestWindow(for snapshot: SessionSnapshot) throws {}
     func bindFrontmostWindow(to sessionId: String) throws {}
+}
+
+private final class MutableClock: TimeProviding {
+    var now: Date
+
+    init(now: Date) {
+        self.now = now
+    }
+}
+
+private final class FakeRepeatingTaskScheduler: RepeatingTaskScheduling {
+    private(set) var scheduledIntervals: [TimeInterval] = []
+    private var action: (() -> Void)?
+
+    @discardableResult
+    func scheduleRepeating(every interval: TimeInterval, _ action: @escaping () -> Void) -> RepeatingTask {
+        scheduledIntervals.append(interval)
+        self.action = action
+        return FakeRepeatingTask()
+    }
+
+    func fire() {
+        action?()
+    }
+}
+
+private struct FakeRepeatingTask: RepeatingTask {
+    func cancel() {}
 }

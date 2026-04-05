@@ -1,7 +1,7 @@
 import type { Plugin } from "@opencode-ai/plugin"
 import type { Event } from "@opencode-ai/sdk"
 import { mapOpencodeEvent } from "./mapper"
-import { metadataFromSessionEvent, opencodeEventToHookEvent } from "./opencode-adapter"
+import { metadataFromSessionEvent, opencodeEventToHookEvent, sessionIdFromRuntimeEvent } from "./opencode-adapter"
 import { BridgeReader } from "./bridge"
 import { SessionCache } from "./session-cache"
 import type { OpencodeHookEvent, SessionMetadata } from "./types"
@@ -84,7 +84,7 @@ export const VigilPlugin: Plugin = async () => {
         return
       }
 
-      const sessionID = "properties" in payload && (payload as any).properties?.sessionID ? (payload as any).properties.sessionID as string : undefined
+      const sessionID = sessionIdFromRuntimeEvent(payload as any)
       const hookEvent = opencodeEventToHookEvent(payload, sessionID ? metadata.get(sessionID) : undefined)
 
       if (!hookEvent) {

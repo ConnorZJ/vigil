@@ -5,6 +5,10 @@ type OpencodeRuntimeEvent = {
   properties?: any
 }
 
+export function sessionIdFromRuntimeEvent(event: OpencodeRuntimeEvent): string | undefined {
+  return event.properties?.sessionID ?? event.properties?.info?.id
+}
+
 function toProjectName(directory: string): string {
   const parts = directory.split("/").filter(Boolean)
   return parts[parts.length - 1] ?? "unknown-project"
@@ -23,7 +27,7 @@ export function metadataFromSessionEvent(event: OpencodeRuntimeEvent): SessionMe
   const info = properties.info
 
   return {
-    sessionId: properties.sessionID ?? info.id,
+    sessionId: sessionIdFromRuntimeEvent(event) ?? info.id,
     sessionTitle: info.title,
     projectPath: info.directory,
     projectName: toProjectName(info.directory),

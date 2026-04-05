@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { metadataFromSessionEvent, opencodeEventToHookEvent } from "../src/opencode-adapter"
+import { metadataFromSessionEvent, opencodeEventToHookEvent, sessionIdFromRuntimeEvent } from "../src/opencode-adapter"
 
 describe("opencode-adapter", () => {
   test("extracts metadata from session.updated", () => {
@@ -50,5 +50,22 @@ describe("opencode-adapter", () => {
 
     expect(hookEvent?.kind).toBe("question")
     expect(hookEvent?.projectName).toBe("vigil")
+  })
+
+  test("extracts session id from session.deleted info payload", () => {
+    expect(
+      sessionIdFromRuntimeEvent({
+        type: "session.deleted",
+        properties: {
+          info: {
+            id: "session-1",
+            directory: "/tmp/vigil",
+            title: "Refactor auth middleware",
+            version: "1",
+            time: { created: 1, updated: 2 },
+          },
+        },
+      } as any)
+    ).toBe("session-1")
   })
 })

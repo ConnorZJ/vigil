@@ -18,9 +18,12 @@ final class AppState {
     private let ghosttyWindowQueryService: GhosttyWindowQuerying
     private let ghosttyWindowBinder: GhosttyWindowBinder
     private let ghosttyWindowActivator: GhosttyWindowActivating
+    private let housekeepingScheduler: RepeatingTaskScheduling
+    private let housekeepingInterval: TimeInterval
     private let paths: Paths
 
     private var lastJumpError: String?
+    private var housekeepingTask: RepeatingTask?
 
     var onChange: (() -> Void)?
 
@@ -33,7 +36,9 @@ final class AppState {
         ghosttyWindowQueryService: GhosttyWindowQuerying = GhosttyAXWindowQueryService(),
         ghosttyWindowBinder: GhosttyWindowBinder? = nil,
         ghosttyWindowActivator: GhosttyWindowActivating? = nil,
-        paths: Paths = Paths()
+        paths: Paths = Paths(),
+        housekeepingScheduler: RepeatingTaskScheduling = TimerRepeatingTaskScheduler(),
+        housekeepingInterval: TimeInterval = 30
     ) {
         self.clock = clock
         self.sessionStore = sessionStore
@@ -44,6 +49,8 @@ final class AppState {
         let binder = ghosttyWindowBinder ?? GhosttyWindowBinder(persistence: BindingPersistence(), clock: clock)
         self.ghosttyWindowBinder = binder
         self.paths = paths
+        self.housekeepingScheduler = housekeepingScheduler
+        self.housekeepingInterval = housekeepingInterval
         self.ghosttyWindowActivator = ghosttyWindowActivator ?? GhosttyWindowActivator(
             queryService: ghosttyWindowQueryService,
             matcher: GhosttyWindowMatcher(),
@@ -51,16 +58,32 @@ final class AppState {
             permissionService: permissionService
         )
         self.transportServer.onStateChange = { [weak self] in
-            self?.onChange?()
+            guard let self else {
+                return
+            }
+
+            if Thread.isMainThread {
+                self.onChange?()
+            } else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.onChange?()
+                }
+            }
         }
     }
 
+    deinit {
+        housekeepingTask?.cancel()
+    }
+
     var presentation: SessionMenuPresentation {
-        SessionMenuBuilder().build(from: sessionStore.allSnapshots, now: clock.now)
+        refreshSessionState()
+        return SessionMenuBuilder().build(from: sessionStore.allSnapshots, now: clock.now)
     }
 
     var sessionSnapshots: [SessionSnapshot] {
-        sessionStore.allSnapshots
+        refreshSessionState()
+        return sessionStore.allSnapshots
     }
 
     var menuActions: SessionMenuActions {
@@ -161,7 +184,7 @@ final class AppState {
             for snapshot in restoredSnapshots {
                 sessionStore.restore(snapshot: snapshot)
             }
-            sessionStore.markStaleSessions(now: clock.now)
+            refreshSessionState()
         } catch {
             Logger.shared.log("Failed to restore persisted sessions: \(error.localizedDescription)")
         }
@@ -176,6 +199,7 @@ final class AppState {
             seedPreviewSessions()
         }
 
+        startAutomaticHousekeeping()
         onChange?()
     }
 
@@ -237,5 +261,27 @@ final class AppState {
 
         let minutes = seconds / 60
         return "\(minutes)m ago"
+    }
+
+    @discardableResult
+    private func refreshSessionState(now: Date? = nil) -> Bool {
+        let previousSnapshots = sessionStore.allSnapshots
+        let current = now ?? clock.now
+        sessionStore.markStaleSessions(now: current)
+        sessionStore.applyRetentionPolicy(now: current)
+        return previousSnapshots != sessionStore.allSnapshots
+    }
+
+    private func startAutomaticHousekeeping() {
+        housekeepingTask?.cancel()
+        housekeepingTask = housekeepingScheduler.scheduleRepeating(every: housekeepingInterval) { [weak self] in
+            guard let self else {
+                return
+            }
+
+            if self.refreshSessionState() {
+                self.onChange?()
+            }
+        }
     }
 }

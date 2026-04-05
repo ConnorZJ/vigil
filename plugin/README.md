@@ -7,14 +7,14 @@ Companion plugin for sending OpenCode session updates to the local Vigil macOS a
 Install dependencies:
 
 ```bash
-/Users/connor/.bun/bin/bun install
+bun install
 ```
 
 Run tests:
 
 ```bash
-/Users/connor/.bun/bin/bun test
-/Users/connor/.bun/bin/bun run typecheck
+bun test
+bun run typecheck
 ```
 
 ## Bridge Discovery

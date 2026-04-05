@@ -1,3 +1,5 @@
+BUN ?= bun
+
 generate:
 	xcodegen generate
 
@@ -9,5 +11,5 @@ test:
 	xcodebuild test -project Vigil.xcodeproj -scheme Vigil -destination 'platform=macOS'
 
 test-plugin:
-	cd plugin && "/Users/connor/.bun/bin/bun" test
-	cd plugin && "./node_modules/.bin/tsc" --noEmit
+	cd plugin && "$(BUN)" test
+	cd plugin && "$(BUN)" run typecheck

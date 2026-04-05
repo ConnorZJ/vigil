@@ -68,6 +68,7 @@
 		DA72ABC32138AAF96083DB94 /* SessionMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E043764819394637ED39EEF /* SessionMenuActions.swift */; };
 		E3DA91BC6840601D8CD96AE0 /* HTTPMessageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E6E474CD4BB3219D96DF4D /* HTTPMessageParser.swift */; };
 		E51493E2AA4AC04A3317E6B7 /* PopoverPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E0F6B2A11CA2693D57111E /* PopoverPresentation.swift */; };
+		EEA420B2C91D498D686BEEB5 /* RepeatingTaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D64C66F074D6B84634828CD /* RepeatingTaskScheduler.swift */; };
 		F14D6D0B0A1855F64912288D /* VigilApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BB2419160E8F3C8144DF1D /* VigilApp.swift */; };
 		F18C02A6A5345F71146CB30F /* BindingPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8240BD6508D7E391831626B1 /* BindingPersistenceTests.swift */; };
 		FB893AD1F89DCBA18994231D /* GhosttyWindowMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A42B9752507FC789A0117E /* GhosttyWindowMatcher.swift */; };
@@ -85,6 +86,7 @@
 
 /* Begin PBXFileReference section */
 		0156F9EBC5E3B422F0D43AB7 /* SessionSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSnapshotTests.swift; sourceTree = "<group>"; };
+		0D64C66F074D6B84634828CD /* RepeatingTaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTaskScheduler.swift; sourceTree = "<group>"; };
 		17CA6FBB1C857063A861683E /* EventIngestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventIngestionController.swift; sourceTree = "<group>"; };
 		18061D64817AF8F554FD0C37 /* SessionPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPersistence.swift; sourceTree = "<group>"; };
 		1E583E04FB38F667B4EDA1F8 /* TransportDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportDiagnostics.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				71AC48DD991D7B7D366A45B2 /* Clock.swift */,
 				ABA9934EB3594A53050BECB1 /* Logger.swift */,
 				45C0E4060A1CE92FAD00DE8E /* Paths.swift */,
+				0D64C66F074D6B84634828CD /* RepeatingTaskScheduler.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 				E51493E2AA4AC04A3317E6B7 /* PopoverPresentation.swift in Sources */,
 				694FFFED431666CBDB79FF9B /* PopoverPresentationBuilder.swift in Sources */,
 				BEFAC9D914CD8979E7151C10 /* PopoverRootView.swift in Sources */,
+				EEA420B2C91D498D686BEEB5 /* RepeatingTaskScheduler.swift in Sources */,
 				1307B2E75CC5A5322C41C27A /* SessionCardView.swift in Sources */,
 				7A54998813B65C49351B5410 /* SessionEvent.swift in Sources */,
 				DA72ABC32138AAF96083DB94 /* SessionMenuActions.swift in Sources */,

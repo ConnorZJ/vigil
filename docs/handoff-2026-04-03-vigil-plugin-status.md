@@ -11,7 +11,7 @@
 
 - OpenCode failed to load the local Vigil plugin wrapper.
 - Evidence from `~/.local/share/opencode/log/2026-04-03T033443.log`:
-  - `loading plugin path=file:///Users/connor/.config/opencode/plugins/vigil.ts`
+  - `loading plugin path=file:///Users/<user>/.config/opencode/plugins/vigil.ts`
   - `error=Plugin export is not a function failed to load plugin`
 
 ## Change Made
