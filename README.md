@@ -1,9 +1,19 @@
 # Vigil
 
-Native macOS menu bar companion for OpenCode sessions.
+Vigil is a native macOS menu bar companion for OpenCode sessions.
+
+It combines:
+
+- a macOS app that shows active and recent sessions in the menu bar
+- a local OpenCode plugin that forwards session events into the app
+
+## Status
+
+Vigil is an early-stage project. The app and plugin are usable for local development, but packaging and installation workflows are still evolving.
 
 ## Requirements
 
+- macOS
 - Xcode
 - XcodeGen
 - Bun
@@ -18,6 +28,33 @@ Install Bun if needed:
 
 ```bash
 curl -fsSL https://bun.sh/install | bash
+```
+
+## Quick Start
+
+Install plugin dependencies:
+
+```bash
+cd plugin && bun install
+```
+
+Generate the Xcode project:
+
+```bash
+make generate
+```
+
+Build the app locally:
+
+```bash
+make build
+```
+
+Run the main verification commands:
+
+```bash
+make test
+make test-plugin
 ```
 
 ## Development
@@ -46,9 +83,16 @@ Run plugin checks:
 make test-plugin
 ```
 
+You can also run the plugin checks directly:
+
+```bash
+cd plugin && bun test
+cd plugin && bun run typecheck
+```
+
 ## Previewing The App
 
-Open `Vigil.xcodeproj` in the worktree and run the app target. The current debug build seeds preview sessions so you can inspect the menu bar UI before wiring the real OpenCode plugin.
+Open `Vigil.xcodeproj` and run the app target. The current debug build seeds preview sessions so you can inspect the menu bar UI before wiring the real OpenCode plugin.
 
 The current preview flow now uses:
 
@@ -68,6 +112,7 @@ For local development, the important pieces are:
 
 - app bridge file: `~/.config/vigil/bridge.json`
 - plugin entry exports: `plugin/src/index.ts`
+- plugin dependencies: `cd plugin && bun install`
 - plugin tests: `make test-plugin`
 
 ## Session Lifecycle
@@ -85,6 +130,10 @@ See `docs/session-lifecycle.md` for the full behavior.
 - If Bun is not in your shell `PATH`, use `$HOME/.bun/bin/bun` directly.
 - If Xcode build settings drift, regenerate with `make generate` before debugging project file issues.
 - For real transport verification, first launch the app, then `curl http://127.0.0.1:<port>/v1/health` using the port from `~/.config/vigil/bridge.json`.
+
+## Contributing
+
+Contributions are welcome. For local setup, verification expectations, and pull request guidance, see `CONTRIBUTING.md`.
 
 ## License
 
