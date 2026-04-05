@@ -1,4 +1,7 @@
 BUN ?= bun
+RELEASE_TAG ?= dev
+
+.PHONY: package-dmg
 
 generate:
 	xcodegen generate
@@ -13,3 +16,6 @@ test:
 test-plugin:
 	cd plugin && "$(BUN)" test
 	cd plugin && "$(BUN)" run typecheck
+
+package-dmg:
+	./scripts/build-dmg.sh "$(RELEASE_TAG)"

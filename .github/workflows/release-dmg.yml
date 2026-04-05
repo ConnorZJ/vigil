@@ -1,0 +1,71 @@
+name: Release DMG
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Release tag to publish, for example v0.1.0
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-15
+    env:
+      RELEASE_TAG: ${{ inputs.release_tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate release source tag
+        run: |
+          git rev-parse -q --verify "refs/tags/$RELEASE_TAG" >/dev/null 2>&1 || {
+            printf 'Release tag %s does not exist. Create and push the tag before running this workflow.\n' "$RELEASE_TAG" >&2
+            exit 1
+          }
+          git checkout --detach "refs/tags/$RELEASE_TAG"
+          printf 'Building existing tag %s at %s\n' "$RELEASE_TAG" "$(git rev-parse HEAD)"
+
+      - name: Validate tag matches marketing version
+        run: |
+          EXPECTED_VERSION="$(ruby -e 'require "yaml"; puts YAML.load_file("project.yml").fetch("settings").fetch("base").fetch("MARKETING_VERSION")')"
+          TAG_VERSION="${RELEASE_TAG#v}"
+
+          if [ "$TAG_VERSION" != "$EXPECTED_VERSION" ]; then
+            printf 'Release tag %s does not match MARKETING_VERSION %s\n' "$RELEASE_TAG" "$EXPECTED_VERSION" >&2
+            exit 1
+          fi
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Build DMG
+        run: ./scripts/build-dmg.sh "$RELEASE_TAG"
+
+      - name: Validate DMG contents
+        run: |
+          MOUNT_PATH="$RUNNER_TEMP/Vigil"
+          mkdir -p "$MOUNT_PATH"
+          hdiutil attach "dist/Vigil.dmg" -nobrowse -mountpoint "$MOUNT_PATH"
+          trap 'hdiutil detach "$MOUNT_PATH"' EXIT
+
+          test -d "$MOUNT_PATH/Vigil.app"
+          test -L "$MOUNT_PATH/Applications"
+          test "$(readlink "$MOUNT_PATH/Applications")" = "/Applications"
+
+          hdiutil detach "$MOUNT_PATH"
+          trap - EXIT
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release create "$RELEASE_TAG" --target "$RELEASE_TAG" --title "$RELEASE_TAG" || \
+               gh release view "$RELEASE_TAG" >/dev/null 2>&1
+          fi
+          gh release upload "$RELEASE_TAG" "dist/Vigil.dmg" --clobber

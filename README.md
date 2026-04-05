@@ -9,9 +9,58 @@ It combines:
 
 ## Status
 
-Vigil is an early-stage project. The app and plugin are usable for local development, but packaging and installation workflows are still evolving.
+Vigil is an early-stage project. The app is available as an unsigned GitHub Release DMG, and the OpenCode plugin is still installed separately from local source.
 
-## Requirements
+## Install Vigil
+
+### App Install
+
+1. Download `Vigil.dmg` from the latest GitHub Release for this repository.
+2. Open the DMG and drag `Vigil.app` into `Applications`.
+3. Launch `Vigil.app` from `Applications`, not directly from the mounted DMG.
+4. If macOS blocks the first launch because the app is unsigned, right-click `Vigil.app`, choose `Open`, then confirm the prompt.
+5. Grant Accessibility permission when Vigil asks for it, or use the menu bar app's `Request Accessibility` action.
+
+### App Install Check
+
+After launching the app:
+
+1. Confirm the Vigil menu bar icon appears.
+2. Open the menu bar item to verify the app is running.
+
+### OpenCode Plugin Setup
+
+The DMG installs only the macOS app. The OpenCode plugin still needs a separate local setup.
+
+Before running any plugin commands, clone or otherwise check out this repository locally. The plugin install commands and OpenCode plugin path below assume you are working from a local checkout of this repo.
+
+Install Bun if needed:
+
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
+
+Install plugin dependencies:
+
+```bash
+cd plugin && bun install
+```
+
+Then configure OpenCode to load the local plugin from this repository. The current plugin entry point is `plugin/src/index.ts`.
+
+This repository does not yet provide a bundled plugin installer. You need to use OpenCode's local plugin workflow to point your OpenCode setup at this local source checkout.
+
+### Plugin Setup Check
+
+After the app is running and OpenCode is configured to load the local plugin:
+
+1. Confirm `~/.config/vigil/bridge.json` exists.
+2. Start or resume an OpenCode session.
+3. Confirm the running app receives session updates in the menu bar UI.
+
+## Contributor Requirements
+
+These requirements are for contributors building Vigil from source, not for end users installing `Vigil.dmg`.
 
 - macOS
 - Xcode
@@ -31,6 +80,8 @@ curl -fsSL https://bun.sh/install | bash
 ```
 
 ## Quick Start
+
+This section is for contributors building Vigil from source.
 
 Install plugin dependencies:
 
@@ -106,7 +157,9 @@ For Ghostty window discovery and jumping, the app needs macOS Accessibility perm
 
 ## Local Plugin Install
 
-At this stage the plugin source lives in `plugin/`. The final packaging path can point OpenCode at the built package entry from `plugin/src/index.ts` or a published npm package later.
+At this stage the plugin source lives in `plugin/`. The app install and plugin install are still separate. The DMG does not bundle the plugin.
+
+The final packaging path can point OpenCode at the built package entry from `plugin/src/index.ts` or a published npm package later.
 
 For local development, the important pieces are:
 
